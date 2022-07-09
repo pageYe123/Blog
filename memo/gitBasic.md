@@ -1,4 +1,13 @@
 # Git 基础操作备查
+## 基础配置
+```shell
+git config --global user.name 你的英文名
+git config --global user.email 你的邮箱
+git config --global core.editor "code" #用 vscode 代替 vim
+git config --global core.autocrlf input #Windows 环境需要设置此项
+```
+请确保已安装 VSCode，并且 code 命令已加入环境变量。
+
 ## 本地仓库的创建
 
 使用 Git 来对现有的项目进行管理，在现有目录中初始化仓库。
