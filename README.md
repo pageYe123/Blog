@@ -1,3 +1,4 @@
 # 世清的博客
 ## 备查录
-[Git基础操作](https://github.com/pageYe123/Blog/blob/master/memo/gitBasic.md)
+[Git 基础操作](./memo/gitBasic.md)  
+[Mac 调试安卓手机页面](./memo/debugAndroid.md)
