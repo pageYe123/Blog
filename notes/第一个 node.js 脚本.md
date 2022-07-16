@@ -1,6 +1,13 @@
-这是我写的第一个 node.js 脚本。
+# 第一个 node.js 脚本
+文件名：`unicode`，所属目录：`/usr/local/bin`（已加入环境变量，用户写的脚本一般都放在这里）。
 
-文件源代码：
+使用：在命令行任意目录下，输入`unicode <单个字符>`，返回对应的 html、javascript、css 转义字符：
+
+![image](https://user-images.githubusercontent.com/11813936/179329127-aa5e9bd6-c742-4d23-8451-413098b05ae9.png)
+
+如`⌘`对应 unicode 编码：`U+2318`。2318是十六进制，对应的十进制是`8984`。
+
+## 文件源代码
 
 ```Shell
 #!/usr/bin/env node
@@ -38,7 +45,7 @@ css 转义字符: \'\\${unicode}\'`);
 
 ### 补充：CSS、JS 与 Unicode 字符互转
 
-对于Unicode，CSS采用十六进行方式进行计算，并以`\{unicode}`方式进行表示：
+对于 Unicode，CSS 采用十六进行方式进行计算，并以`\{unicode}`方式进行表示：
 
 ```css
 span::before {
@@ -46,6 +53,6 @@ span::before {
 }
 ```
 
-对于Unicode，JS也采用十六进制的方式进行计算，但以`\u{unicode}`的方式表示：
+对于 Unicode，Javascript 也采用十六进制的方式进行计算，但以`\u{unicode}`的方式表示：
 
 `document.querySelector('span').innerHTML = '\u2318';`
