@@ -170,7 +170,7 @@ git pull先拉取再合并
 
 ### 推送到远程仓库
 
-`git push -u origin master` "-u" 表示 "-- set-upstream"，建立本地分支与远程分支的关联(upstram reference) 以后 `git push` \`git pull`简写即可。也可以写进alias别名里。
+`git push -u origin master` "-u" 表示 "-- set-upstream"，建立本地分支与远程分支的关联(upstream reference) 以后 `git push`、`git pull`简写即可。也可以写进alias别名里。
 
 `git push origin <分支名> --force`强制推送到远程仓库，会覆盖远程仓库的提交历史。
 
