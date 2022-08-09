@@ -276,6 +276,11 @@ git log #查看确认是否删除
 参考资料：[Git 删除本地仓库指定commit的方法](https://www.jianshu.com/p/2fd2467c27bb)
   
 ## 其他
+
+### 命令行中打开远程仓库首页
+  `yarn global add git-open`  
+  用`git open`打开 Github 远程仓库首页
+  
 ### git 别名
 在~/.oh-my-zsh/plugins/git/git.plugin.zsh中设置（[文章：oh-my-zsh中 git 别名设置](https://segmentfault.com/a/1190000007059404)）
 
