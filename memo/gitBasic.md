@@ -21,6 +21,7 @@ git init
 ## 文件状态演变
 ### 加入暂存区与提交
 
+- 提交工作目录中所有变更文件
 ```shell
 git add .
 git commit -m "提交信息"
@@ -29,16 +30,21 @@ git commit -m "提交信息"
 等价于
 
 ```shell
+# 只针对 tracked 文件
 git commit -am "提交信息"
 ```
 
-但工作目录中变更的文件必须是 tracked 文件。
-
-
-- 场景：git commit 只针对单个文件进行提交
+- 针对单个文件进行提交
 
 ```shell
 git commit <file> -m '提交信息'
+```
+
+- 提交时显示所有 diff 信息（只针对 tracked 文件）  
+提交信息在编辑器中输入。
+
+```shell
+git commit -v .
 ```
 
 ### 移除文件
@@ -81,6 +87,20 @@ doc/*.txt
 # 忽略doc/目录下的所有的 .txt文件
 doc/**/*.txt
 ```
+
+## 临时储藏代码
+### stash（藏匿）当前修改
+`git stash`  
+实际应用中推荐给每个 stash 加一个 message，用于记录版本：`git stash save "test-cmd-stash"`
+
+### 重新应用缓存的 stash
+`git stash pop`
+
+### 查看现有 stash
+`git stash list`
+
+### 移除 stash
+`git stash drop stash@{0}`
 
 ## 撤销操作 
 ### git reset：重置为特定commit
