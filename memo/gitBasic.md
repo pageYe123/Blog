@@ -103,7 +103,7 @@ doc/**/*.txt
 `git stash drop stash@{0}`
 
 ## 撤销操作 
-### git reset：重置为特定commit
+### git reset：重置为特定 commit
 
 **三个概念：(working directory)工作目录(add)→(Index)暂存区(commit)→本地版本库**
 
@@ -119,24 +119,29 @@ doc/**/*.txt
 
 
 - 场景：单个文件移出暂存区
-
 ```
 git reset HEAD <file>
 ```
 
 - 场景：全部文件移出暂存区（清空暂存区）
-
 ```
-git reset`等价于 `git reset --mixed HEAD
+git reset 等价于 git reset --mixed HEAD
 ```
 
 - 场景：取消本次提交，变更退回至暂存区
-
 ```
-git reset --soft HEAD~1
+git reset --soft HEAD
 ```
 
-- 场景：重置为之前的版本
+- 场景：还原工作目录中的单个文件
+```
+git checkout HEAD -- <file>
+等价于
+git restore <file>
+```
+注明：`git reset --hard <file>` 无效
+
+- 场景：重置为之前的版本  
 
 `git reset HEAD` 回退到表示当前版本
 
@@ -182,7 +187,7 @@ git remote remove gitlab
 
 `git fetch`拉取远程仓库的数据，包括所有分支及各个分支上的代码修改情况。
 
-`git checkout -b <分支名> <基分支> `检出远程仓库的分支到本地仓库
+`git checkout -b <分支名> <基分支> `将远程仓库的某分支作为基分支检出到本地仓库，并命名该分支。
 
 #### 关于git pull vs git fetch
 
