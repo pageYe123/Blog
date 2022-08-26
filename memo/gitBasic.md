@@ -8,6 +8,8 @@ git config --global core.autocrlf input # Windows 环境需要设置此项
 git config --global core.quotepath false # 应对 git status 含中文的文件（夹）名显示为八进制的字符编码
 git config --global init.defaultBranch master # 默认分支设置
 ```
+也可直接修改`~/.gitconfig`文件。  
+
 注意：请确保已安装 VSCode，并且 code 命令已加入环境变量。必须加`--wait`参数，否则`git commit -v`会报错。
 
 ## 本地仓库的创建
