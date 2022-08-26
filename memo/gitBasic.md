@@ -3,12 +3,12 @@
 ```shell
 git config --global user.name 你的英文名
 git config --global user.email 你的邮箱
-git config --global core.editor "code --wait" # 用 VSCode 代替 vim
+git config --global core.editor "code --wait" # 用 VSCode 代替 vim。
 git config --global core.autocrlf input # Windows 环境需要设置此项
+git config --global core.quotepath false # 应对 git status 含中文的文件（夹）名显示为八进制的字符编码
 git config --global init.defaultBranch master # 默认分支设置
 ```
-注意：请确保已安装 VSCode，并且 code 命令已加入环境变量。  
-注意：editor 的设置必须加`--wait`参数，否则`git commit -v`会报错。
+注意：请确保已安装 VSCode，并且 code 命令已加入环境变量。必须加`--wait`参数，否则`git commit -v`会报错。
 
 ## 本地仓库的创建
 
