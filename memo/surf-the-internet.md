@@ -99,7 +99,7 @@ brew install proxychains-ng
 3. 配置proxychains-ng
   - 安装 proxychains-ng
   - 下载配置文件（如果下面的命令执行失败，那你就自己下载[proxychains.conf](https://raw.githubusercontent.com/FrankFang/dot-files/master/proxychains.conf)，然后将其移动到 ~/.proxychains.conf）
-  - 注意修改配置文件中的端口号，和本地代理客户端提供socks 服务的端口号保持一致。
+  - 注意修改配置文件中的端口号，和本地代理客户端提供 socks 服务的端口号保持一致。
     ```
     curl -L https://raw.githubusercontent.com/FrankFang/dot-files/master/proxychains.conf > ~/.proxychains.conf
     ```
