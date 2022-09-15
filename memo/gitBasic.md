@@ -3,10 +3,12 @@
 ```shell
 git config --global user.name 你的英文名
 git config --global user.email 你的邮箱
-git config --global core.editor "code --wait" # 用 VSCode 代替 vim。
+git config --global core.editor 'code --wait' # 用 VSCode 代替 vim。
 git config --global core.autocrlf input # Windows 环境需要设置此项
 git config --global core.quotepath false # 应对 git status 含中文的文件（夹）名显示为八进制的字符编码
 git config --global init.defaultBranch master # 默认分支设置
+git config --global http.proxy 'socks5://127.0.0.1:51833' # 注意端口号一定要设对
+git config --global https.proxy 'socks5://127.0.0.1:51833'
 ```
 也可直接修改`~/.gitconfig`文件。  
 
@@ -312,7 +314,7 @@ git log #查看确认是否删除
 在~/.oh-my-zsh/plugins/git/git.plugin.zsh中设置（[文章：oh-my-zsh中 git 别名设置](https://segmentfault.com/a/1190000007059404)）
 
 ### 为什么命令行中，不翻墙，git push 那么慢？甚至导致 push failed
-不知什么原因。最终用 git 设置 socks5 代理，直接走系统中运行的代理工具中转来解决。
+不知什么原因。最终用 git 设置 socks5 代理，通过系统中运行的代理客户端中转来解决。
 
 ### 为什么命令行中，不翻墙，git clone 就那么慢呢？明明访问 github 都是可以的。
 因为 github.global.ssl.fastly.net 域名被限制了。 只要找到这个域名对应的 ip 地址，然后在 hosts 文件中加上ip–>域名的映射，刷新DNS缓存便可。参考：[git clone下载慢的问题](https://www.jianshu.com/p/b662a8b91890) 。修改完之后快很多。
