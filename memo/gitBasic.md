@@ -9,6 +9,8 @@ git config --global core.quotepath false # 应对 git status 含中文的文件�
 git config --global init.defaultBranch master # 默认分支设置
 git config --global http.proxy 'socks5://127.0.0.1:51833' # 注意端口号一定要设对
 git config --global https.proxy 'socks5://127.0.0.1:51833'
+# 避免提交的文件太大(默认是1M)导致 push 失败，或下载的文件太大导致读取失败。
+git config --global http.postBuffer 500M 
 ```
 也可直接修改`~/.gitconfig`文件。  
 
@@ -324,6 +326,17 @@ git log #查看确认是否删除
 查看仓库和全局的 git 配置信息，及存放位置：
 ```Shell
 git config --list --show-origin
+```
+### 应对文件太大或网络太慢超时导致 RPC failed
+RPC (Remote Procedure Call)，远程过程调用，简单讲就是一个节点请求另一个节点提供的服务。
+
+```shell
+# 增大 postBuffer 避免缓存溢出，如果不够，就继续增大
+git config --global http.postBuffer 800M
+
+# 增加最低速时间
+git config --global http.lowSpeedLimit 0
+git config --global http.lowSpeedTime 999999
 ```
 
 ### 为什么命令行中，不翻墙，git push 那么慢？甚至导致 push failed
