@@ -317,7 +317,14 @@ git log #查看确认是否删除
   用`git open`打开 Github 远程仓库首页
   
 ### git 别名
-在~/.oh-my-zsh/plugins/git/git.plugin.zsh中设置（[文章：oh-my-zsh中 git 别名设置](https://segmentfault.com/a/1190000007059404)）
+我们可以在`~/.zshrc`中定义，zsh初始设置了一些 git 别名，放在`~/.oh-my-zsh/plugins/git/git.plugin.zsh`（[文章：oh-my-zsh中 git 别名设置](https://segmentfault.com/a/1190000007059404)）
+
+### 查看 git config 信息
+
+查看仓库和全局的 git 配置信息，及存放位置：
+```Shell
+git config --list --show-origin
+```
 
 ### 为什么命令行中，不翻墙，git push 那么慢？甚至导致 push failed
 不知什么原因。最终用 git 设置 socks5 代理，通过系统中运行的代理客户端中转来解决。
