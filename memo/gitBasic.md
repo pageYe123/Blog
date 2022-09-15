@@ -181,10 +181,16 @@ git revert 提交之后，push 到远程仓库，可以看到回退到之前哪�
 ### 添加、移除远程仓库
 
 ```shell
-git remote add <远程仓库名> <远程仓库url>
-git remote add origin <远程仓库url>
-git remote add gitlab <远程仓库url>
+git remote add <远程仓库名> <远程仓库URL>
+git remote add origin <远程仓库URL>
+git remote add gitlab <远程仓库URL>
 git remote remove gitlab
+```
+
+### 远程仓库换源
+
+```shell
+git remote set-url origin <远程仓库URL>
 ```
 
 ### 拉取远程仓库数据
