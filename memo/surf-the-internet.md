@@ -82,8 +82,21 @@ Chrome 插件配合 Shadowsocks 使用，效果奇佳。
 
 ![image](https://user-images.githubusercontent.com/59866634/72331056-8041c180-36f2-11ea-852b-78d11ddb8cf8.png)
 
-## Mac 命令行 FQ
+## Mac 命令行篇
 
+### 方法一：设置代理相关环境变量
+
+`HTTP_PROXY`、`HTTPS_PROXY` 和 `ALL_PROXY` 三个环境变量用于设置命令终端的代理。  
+在`~/.zshrc`中输入如下内容：注意端口号要与代理客户端提供服务的端口号保持一致。
+
+```shell
+alias setproxy="export ALL_PROXY=socks5://127.0.0.1:51837"
+alias unsetproxy="unset ALL_PROXY"
+alias proxyon=setproxy
+alias proxyoff=unsetproxy
+```
+
+### 方法二：proxychains-ng
 1. 安装 homebrew 
 
 ```
