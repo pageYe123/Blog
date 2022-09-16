@@ -84,14 +84,14 @@ Chrome 插件配合 Shadowsocks 使用，效果奇佳。
 
 ## Mac 命令行篇
 
-### 方法一：设置代理相关环境变量
+### 方法一：为终端设置代理相关环境变量
 
-`HTTP_PROXY`、`HTTPS_PROXY` 和 `ALL_PROXY` 三个环境变量用于设置命令终端的代理。  
-在`~/.zshrc`中输入如下内容：注意端口号要与代理客户端提供服务的端口号保持一致。
+`http_proxy`、`https_proxy` 和 `all_proxy` 三个环境变量用于设置命令终端的代理。  
+在`~/.zshrc`中输入如下内容 (注意端口号要与代理客户端提供服务的端口号保持一致)。
 
 ```shell
-alias setproxy="export ALL_PROXY=socks5://127.0.0.1:51837"
-alias unsetproxy="unset ALL_PROXY"
+alias setproxy="export all_proxy=socks5://127.0.0.1:51837"
+alias unsetproxy="unset all_proxy;unset http_proxy;unset https_proxy"
 alias proxyon=setproxy
 alias proxyoff=unsetproxy
 ```
@@ -122,4 +122,5 @@ brew install proxychains-ng
     ```
   - `source ~/.bashrc`
   - pc git clone xxx 或者  pc brew install xxx --verbose，那么这个命令行就是翻墙的。
-  - proxychians-ng 可以通过 https 协议git clone，但无法通过 git@github.com 的方式git clone.
+  
+    注意：`pc git clone <仓库地址>` 仓库地址可以用 https 协议，但无法使用 SSH 的方式。
