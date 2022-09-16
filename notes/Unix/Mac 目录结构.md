@@ -4,7 +4,7 @@
 
 ![tree 命令查看 Mac 根目录](https://wx4.sinaimg.cn/mw690/6cdfff77gy1h47rkzle9kj207e08yaai.jpg)
 
-<!-- tree -L 3 -d -F -I "Applications|Library|Users|System|Volumes|cores|opt|share|lib|libexec|fd|etc|Caskroom|Cellar|Frameworks|Homebrew|Watchdata|include|authserver|iRATBW.mlmodelc|standalone|tmp|tftpboot|private|home" -->
+<!-- tree -L 3 -d -I "Applications|Library|Users|System|Volumes|cores|opt|share|lib|libexec|fd|etc|Caskroom|Cellar|Frameworks|Homebrew|Watchdata|include|authserver|iRATBW.mlmodelc|standalone|tmp|tftpboot|private|home" -->
 
 `/sbin`是 Super User Binaries（超级用户二进制文件）的缩写，这里存放的是系统管理员使用的系统管理程序。如 ifconfig 命令。
 
