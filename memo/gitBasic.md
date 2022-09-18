@@ -55,7 +55,19 @@ git commit -v .
 
 ### 移除文件
 
-`git rm --cached <文件>` 把文件移出暂存区，但本地目录仍保留该文件。
+#### 删除工作区文件，并且将这次删除放入暂存区
+
+注意：要删除的文件是没有修改过的，就是说和当前版本库文件的内容相同。
+
+```shell
+git rm <file>
+```
+
+#### 将文件移出暂存区，但仍在工作目录保留
+
+```shell
+git rm --cached <file>
+```
 
 - 场景：小A在提交代码时不小心把一个用于本地测试的数据库文件 database 一并提交并推送到 Github，导致 Github 源码体积增加几百 M。现在他需要在仓库中删除 database 文件，但本地依然保留该文件（本地开发需要）。
 
@@ -70,6 +82,24 @@ echo database >> .gitignore
 git add .
 git commit -m "添加.gitignore"
 git push origin master
+```
+
+#### 删除未追踪文件(untracked files)
+
+```shell
+# 先看一下会删除哪些文件
+git clean -nf
+# 进行删除
+git clean -f
+```
+
+删除未追踪文件及文件夹
+
+```shell
+# 先看一下会删除哪些文件及文件夹
+git clean -nfd
+# 进行删除
+git clean -fd
 ```
 
 ### .gitignore忽略文件
