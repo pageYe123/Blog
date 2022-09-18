@@ -360,6 +360,18 @@ git log #查看确认是否删除
 ```Shell
 git config --list --show-origin
 ```
+
+### 查看某个 Github 仓库的大小
+
+目前通过访问`https://api.github.com/repos/{owner}/{repo}"`，查看`size`字段获取。  
+`owner`表示所有者，`repo`代表仓库名。
+
+### 统计本地仓库记录的 commit 次数
+
+```Shell
+git log | grep -e 'commit [a-zA-Z0-9]*' | wc -l
+```
+
 ### 应对文件太大或网络太慢超时导致 RPC failed
 RPC (Remote Procedure Call)，远程过程调用，简单讲就是一个节点请求另一个节点提供的服务。
 
