@@ -7,7 +7,8 @@ git config --global core.editor 'code --wait' # 用 VSCode 代替 vim。
 git config --global core.autocrlf input # Windows 环境需要设置此项
 git config --global core.quotepath false # 应对 git status 含中文的文件（夹）名显示为八进制的字符编码
 git config --global init.defaultBranch master # 默认分支设置
-git config --global http.proxy 'socks5://127.0.0.1:51833' # 注意端口号一定要设对
+# 为 git 设置代理，注意端口号一定要设对
+git config --global http.proxy 'socks5://127.0.0.1:51833'
 git config --global https.proxy 'socks5://127.0.0.1:51833'
 # 避免提交的文件太大(默认是1M)导致 push 失败，或下载的文件太大导致读取失败。
 git config --global http.postBuffer 500M
