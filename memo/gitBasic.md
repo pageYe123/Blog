@@ -10,7 +10,10 @@ git config --global init.defaultBranch master # 默认分支设置
 git config --global http.proxy 'socks5://127.0.0.1:51833' # 注意端口号一定要设对
 git config --global https.proxy 'socks5://127.0.0.1:51833'
 # 避免提交的文件太大(默认是1M)导致 push 失败，或下载的文件太大导致读取失败。
-git config --global http.postBuffer 500M 
+git config --global http.postBuffer 500M
+# 将 .DS_Store 加入全局的 .gitignore 文件
+echo .DS_Store >> ~/.gitignore_global
+git config --global core.excludesfile ~/.gitignore_global
 ```
 也可直接修改`~/.gitconfig`文件。  
 
