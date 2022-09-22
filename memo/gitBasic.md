@@ -1,5 +1,6 @@
 # Git 基础操作备查
-## 基础配置
+## git 配置
+
 ```shell
 git config --global user.name 你的英文名
 git config --global user.email 你的邮箱
@@ -16,9 +17,12 @@ git config --global http.postBuffer 500M
 echo .DS_Store >> ~/.gitignore_global
 git config --global core.excludesfile ~/.gitignore_global
 ```
+
+`--global`全局配置，`--local`仅在本项目中配置  
+
 也可直接修改`~/.gitconfig`文件。  
 
-注意：请确保已安装 VSCode，并且 code 命令已加入环境变量。必须加`--wait`参数，否则`git commit -v`会报错。
+注意：请确保已安装 VSCode，并且 `code` 命令已加入环境变量。必须加`--wait`参数，否则`git commit -v`会报错。
 
 ## 本地仓库的创建
 
