@@ -18,9 +18,9 @@ echo .DS_Store >> ~/.gitignore_global
 git config --global core.excludesfile ~/.gitignore_global
 ```
 
-`--global`全局配置，`--local`仅在本项目中配置  
+`--global`在全局配置，`--local`仅在本项目中配置，`--unset`取消配置  
 
-也可直接修改`~/.gitconfig`文件。  
+除了通过命令行进行 git 配置，也可直接修改`~/.gitconfig`文件。  
 
 注意：请确保已安装 VSCode，并且 `code` 命令已加入环境变量。必须加`--wait`参数，否则`git commit -v`会报错。
 
