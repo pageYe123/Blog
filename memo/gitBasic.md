@@ -393,4 +393,11 @@ git config --global http.lowSpeedTime 999999
 不知什么原因。最终用 git 设置 socks5 代理，通过系统中运行的代理客户端中转来解决。
 
 ### 为什么命令行中，不翻墙，git clone 就那么慢呢？明明访问 github 都是可以的。
-因为 github.global.ssl.fastly.net 域名被限制了。 只要找到这个域名对应的 ip 地址，然后在 hosts 文件中加上ip–>域名的映射，刷新DNS缓存便可。参考：[git clone下载慢的问题](https://www.jianshu.com/p/b662a8b91890) 。修改完之后快很多。
+因为 github.global.ssl.fastly.net 域名被限制了。 只要找到这个域名对应的 ip 地址，然后在 `/etc/hosts` 文件中加上 ip 到域名的映射，刷新DNS缓存便可。
+  
+```shell
+199.232.69.194 github.global.ssl.fastly.net
+140.82.113.4 github.com
+```
+
+参考：[git clone下载慢的问题](https://www.jianshu.com/p/b662a8b91890) 。修改完之后快很多。
