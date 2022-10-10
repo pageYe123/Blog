@@ -2,12 +2,13 @@
 ## git 配置
 
 ```shell
-git config --global user.name 你的英文名
-git config --global user.email 你的邮箱
+git config --global user.name '你的英文名'
+git config --global user.email '你的邮箱'
 git config --global core.editor 'code --wait' # 用 VSCode 代替 vim。
 git config --global core.autocrlf input # Windows 环境需要设置此项
 git config --global core.quotepath false # 应对 git status 含中文的文件（夹）名显示为八进制的字符编码
 git config --global init.defaultBranch master # 默认分支设置
+git config --global pull.rebase false # git pull 时默认用 git merge 来合并代码，应对 git pull 警告
 # 为 git 设置代理，注意端口号一定要设对
 git config --global http.proxy 'socks5://127.0.0.1:51833'
 git config --global https.proxy 'socks5://127.0.0.1:51833'
@@ -116,6 +117,9 @@ git clean -fd
 # 忽略.a为后缀的文件
 *.a
 
+# 忽略所有__为前缀的文件
+__*
+
 # 尽管上面忽略了.a为后缀的文件，但不忽略lib.a
 !lib.a
 
@@ -128,8 +132,9 @@ build/
 # 忽略doc/notes.txt，但不忽略 doc/server/a.txt
 doc/*.txt
 
-# 忽略doc/目录下的所有的 .txt文件
+# 忽略doc/目录下的所有的以.txt结尾的文件
 doc/**/*.txt
+
 ```
 
 ## 临时储藏代码
@@ -230,6 +235,7 @@ git remote remove gitlab
 ### 远程仓库换源
 
 ```shell
+# 必须先创建远程仓库 origin 
 git remote set-url origin <远程仓库URL>
 ```
 
@@ -247,7 +253,7 @@ git pull先拉取再合并
 
 ### 推送到远程仓库
 
-`git push -u origin master` "-u" 表示 "-- set-upstream"，建立本地分支与远程分支的关联(upstream reference) 以后 `git push`、`git pull`简写即可。也可以写进alias别名里。
+`git push -u origin master` "-u" 表示 "--set-upstream"，建立本地分支与远程分支的关联(upstream reference) 以后 `git push`、`git pull`简写即可。也可以写进alias别名里。
 
 `git push origin <分支名> --force`强制推送到远程仓库，会覆盖远程仓库的提交历史。
 
@@ -280,6 +286,9 @@ git push origin --delete <远程分支名>
 git branch -m <新分支名> 
 ## 改变指定分支名称
 git branch -m <指定分支名> <新分支名>
+### 如果新分支名已经存在，则拒绝改变
+## 强制改变当前分支名称（会覆盖掉冲突的分支名）
+git branch -M <新分支名>
 
 # 查看本地和远程仓库的所有分支 
 git branch -a
@@ -349,13 +358,18 @@ git log #查看确认是否删除
 ```
 
 参考资料：[Git 删除本地仓库指定commit的方法](https://www.jianshu.com/p/2fd2467c27bb)
-  
+
 ## 其他
 
+### Github `New repository` 最佳方案
+
+新建远程仓库时，写完必填项`Repository name`，其他一概不填，内容完全由本地仓库推送上去。这样保证远程仓库没有 commit 信息，和本地仓库有 commit 信息的仓库进行合并时会容易一些。
+
 ### 命令行中打开远程仓库首页
+
   `yarn global add git-open`  
   用`git open`打开 Github 远程仓库首页
-  
+
 ### git 别名
 我们可以在`~/.zshrc`中定义，zsh初始设置了一些 git 别名，放在`~/.oh-my-zsh/plugins/git/git.plugin.zsh`（[文章：oh-my-zsh中 git 别名设置](https://segmentfault.com/a/1190000007059404)）
 
@@ -377,7 +391,15 @@ git config --list --show-origin
 git log | grep -e 'commit [a-zA-Z0-9]*' | wc -l
 ```
 
+### 为已存在的项目添加开源许可证
+
+对于已创建的代码仓库，在 GitHub 仓库主页面中依次点击 “Add file → Create new file”。
+在跳转到的页面内的文件输入框中填入 “LICENSE”，在文件输入框的右侧将会出现 “Choose a license template” 按钮，点击该按钮。
+
+![添加开源许可证](https://wx4.sinaimg.cn/large/6cdfff77gy1h6yz3cpemmj20pj07o414.jpg)
+
 ### 应对文件太大或网络太慢超时导致 RPC failed
+
 RPC (Remote Procedure Call)，远程过程调用，简单讲就是一个节点请求另一个节点提供的服务。
 
 ```shell
@@ -389,15 +411,32 @@ git config --global http.lowSpeedLimit 0
 git config --global http.lowSpeedTime 999999
 ```
 
-### 为什么命令行中，不翻墙，git push 那么慢？甚至导致 push failed
-不知什么原因。最终用 git 设置 socks5 代理，通过系统中运行的代理客户端中转来解决。
-
 ### 为什么命令行中，不翻墙，git clone 就那么慢呢？明明访问 github 都是可以的。
+
+20221009注：现统一走命令行代理。
+
 因为 github.global.ssl.fastly.net 域名被限制了。 只要找到这个域名对应的 ip 地址，然后在 `/etc/hosts` 文件中加上 ip 到域名的映射，刷新DNS缓存便可。
-  
+
 ```shell
 199.232.69.194 github.global.ssl.fastly.net
 140.82.113.4 github.com
 ```
 
 参考：[git clone下载慢的问题](https://www.jianshu.com/p/b662a8b91890) 。修改完之后快很多。
+
+## 解决报错
+
+> fatal: refusing to merge unrelated histories
+
+场景：github 上新建了仓库包含一次提交，本地 git init 之后也有提交，那么本地仓库和远程仓库 git pull 时，git 无法确定谁作为首次提交，于是 git 认为这两者的分支是分离的（divergent）、历史是没有关联的（unrelated）。 
+
+解决方案：
+
+```shell
+git pull origin master --allow-unrelated-histories
+```
+
+
+
+
+
