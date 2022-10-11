@@ -56,7 +56,7 @@ git commit -am "提交信息"
 git commit <file> -m '提交信息'
 ```
 
-- 提交时显示所有 diff 信息（只针对 tracked 文件）  
+- 提交时显示所有 diff 信息（只针对 tracked 文件） 
 提交信息在编辑器中输入。
 
 ```shell
@@ -73,10 +73,11 @@ git commit -v .
 git rm <file>
 ```
 
-#### 将文件移出暂存区，但仍在工作目录保留
+#### 将文件从本地仓库和暂存区移出到工作目录，变为 untracked 文件
 
 ```shell
 git rm --cached <file>
+git rm -r --cached <directory>
 ```
 
 - 场景：小A在提交代码时不小心把一个用于本地测试的数据库文件 database 一并提交并推送到 Github，导致 Github 源码体积增加几百 M。现在他需要在仓库中删除 database 文件，但本地依然保留该文件（本地开发需要）。
@@ -84,7 +85,7 @@ git rm --cached <file>
 ```shell
 # 暂存区删除database，本地保留database
 git rm --cached database
-# 提交变动。
+# 提交变动
 git commit -m "删除无关文件"
 
 touch .gitignore
@@ -138,7 +139,18 @@ doc/**/*.txt
 
 ```
 
+有时会发现 .gitignore 规则不生效。原因是 .gitignore 只能忽略那些原来没有被 track 的文件，如果某些文件已经被纳入了版本管理中，则修改 .gitignore 是无效的。
+
+解决方法：先把文件改成 untracked 状态，然后再提交。
+
+```shell
+git rm -r --cached .
+```
+
+
+
 ## 临时储藏代码
+
 ### stash（藏匿）当前修改
 `git stash`  
 实际应用中推荐给每个 stash 加一个 message，用于记录版本：`git stash save "test-cmd-stash"`
@@ -152,7 +164,24 @@ doc/**/*.txt
 ### 移除 stash
 `git stash drop stash@{0}`
 
+## git diff 命令比较不同
+
+比较文件在暂存区和工作区的差异。
+
+```shell
+git diff <文件名>
+```
+
+从`commit-1`到`commit-2`文件发生了那些变化。
+
+```shell
+git diff <commit-1> <commit-2> <文件名>
+```
+
+
+
 ## 撤销操作 
+
 ### git reset：重置为特定 commit
 
 **三个概念：(working directory)工作目录(add)→(Index)暂存区(commit)→本地版本库**
@@ -360,6 +389,34 @@ git log #查看确认是否删除
 
 参考资料：[Git 删除本地仓库指定commit的方法](https://www.jianshu.com/p/2fd2467c27bb)
 
+## 打标签 git tag
+
+```shell
+# 创建一个标签
+git tag <your_tag_name> 
+# 创建一个带有注释的标签
+git tag -a <your_tag_name> -m 'your_tag_description'
+
+# 删除远程仓库的标签
+git push --delete origin <tag-name>
+# 删除本地的某个标签
+git tag -d <your_tag_name>
+
+# 查看所有本地标签
+git tag --list
+# 查看标签信息
+git show <your_tag_name>
+# 查看所有的远程标签及 commit ID
+git ls-remote --tags origin
+
+# 推送一个标签到远程
+git push origin <your_tag_name>
+# 推送多个本地标签到远程
+git push origin --tags
+```
+
+
+
 ## 其他
 
 ### Github `New repository` 最佳方案
@@ -371,7 +428,17 @@ git log #查看确认是否删除
   `yarn global add git-open`  
   用`git open`打开 Github 远程仓库首页
 
+### 大体积仓库的下载
+
+先克隆一个远程仓库到本地，其中只有一个`.git`文件夹，不检出任何项目文件，再更新代码。
+
+```shell
+git clone --no-checkout <repoURL>
+git pull
+```
+
 ### git 别名
+
 我们可以在`~/.zshrc`中定义，zsh初始设置了一些 git 别名，放在`~/.oh-my-zsh/plugins/git/git.plugin.zsh`（[文章：oh-my-zsh中 git 别名设置](https://segmentfault.com/a/1190000007059404)）
 
 ### 查看 git config 信息
