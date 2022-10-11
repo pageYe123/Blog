@@ -277,7 +277,7 @@ git remote set-url origin <远程仓库URL>
 
 #### 关于git pull vs git fetch
 
-git pull<=>git fetch+git merge
+git pull <=> git fetch+git merge
 
 git pull先拉取再合并
 
@@ -369,7 +369,7 @@ git checkout experiment
 git rebase master #如果有冲突解决冲突
 
 git checkout master
-git merge experiment
+git merge experiment # 将 experiment 分支合并到 master 分支
 ```
 
 ### 场景：删除指定commit
@@ -381,8 +381,8 @@ git rebase -i <commit-id>
 # -i表示--interactive，交互式变基，
 # 用户自己决定相对于祖先的历次提交，怎么处置，是删除还是与下一个合并。
 # 特别注意：commit-id 为要删除的commit的上一个commit号
-# 编辑文件，将要删除的commit之前的单词改为drop 表示删除。
-# 还有其他命令如s, squash表示与前面的提交融合
+# 编辑文件，将要删除的 commit 之前的单词改为 drop 表示删除。
+# 还有其他命令如 s, squash 表示与前面的提交融合
 # 保存文件退出
 git log #查看确认是否删除
 ```
@@ -450,8 +450,9 @@ git config --list --show-origin
 
 ### 查看某个 Github 仓库的大小
 
-目前通过访问`https://api.github.com/repos/{owner}/{repo}"`，查看`size`字段获取。  
-`owner`表示所有者，`repo`代表仓库名。
+目前通过访问`https://api.github.com/repos/{owner}/{repo}"`，查看`size`字段获取，单位为 KB。 `owner`表示所有者，`repo`代表仓库名。
+
+访问`api.github.com`可以查看 Github 提供的其他 API。
 
 ### 统计本地仓库记录的 commit 次数
 
