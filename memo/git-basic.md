@@ -4,8 +4,8 @@
 ```shell
 git config --global user.name '你的英文名'
 git config --global user.email '你的邮箱'
-git config --global core.editor 'code --wait' # 用 VSCode 代替 vim。
-git config --global core.autocrlf input # 自动将换行符统一为 LF
+git config --global core.editor 'code --wait' # 用 VSCode 代替 vim
+git config --global core.autocrlf input # 在提交时把 CRLF 转换成 LF，签出时不转换
 git config --global core.whitespace cr-at-eol # 消除 git diff 中的 ^M
 git config --global core.quotepath false # 应对 git status 含中文的文件（夹）名显示为八进制的字符编码
 git config --global init.defaultBranch master # 默认分支设置
