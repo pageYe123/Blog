@@ -7,7 +7,7 @@ My personal blog using issues and GitHub Actions (随意转载，无需署名)
 ## 最近更新
 - [加粗、斜体和下划线用于强调时的区别](https://github.com/yeshiqing/Blog/issues/9)--2022-10-12
 - [连接号辨析 En Dash`–` vs. Em Dash`—` ](https://github.com/yeshiqing/Blog/issues/8)--2022-10-12
-- [词汇辨析 mark、symbol、sign、token](https://github.com/yeshiqing/Blog/issues/7)--2022-10-12
+- [词汇辨析 mark、symbol、sign、token、identifier](https://github.com/yeshiqing/Blog/issues/7)--2022-10-12
 - [仓库项目过大导致 git clone 失败](https://github.com/yeshiqing/Blog/issues/6)--2022-10-11
 - [我的第一个 node.js 脚本](https://github.com/yeshiqing/Blog/issues/5)--2022-10-11
 ## git
@@ -24,11 +24,11 @@ My personal blog using issues and GitHub Actions (随意转载，无需署名)
 - [连接号辨析 En Dash`–` vs. Em Dash`—` ](https://github.com/yeshiqing/Blog/issues/8)--2022-10-12
 - [连字暨减号`-`和下划线`_`](https://github.com/yeshiqing/Blog/issues/1)--2022-10-07
 ## naming
-- [词汇辨析 mark、symbol、sign、token](https://github.com/yeshiqing/Blog/issues/7)--2022-10-12
+- [词汇辨析 mark、symbol、sign、token、identifier](https://github.com/yeshiqing/Blog/issues/7)--2022-10-12
 - [连字暨减号`-`和下划线`_`](https://github.com/yeshiqing/Blog/issues/1)--2022-10-07
 ## nodejs
 - [我的第一个 node.js 脚本](https://github.com/yeshiqing/Blog/issues/5)--2022-10-11
 ## shell script
 - [我的第一个 node.js 脚本](https://github.com/yeshiqing/Blog/issues/5)--2022-10-11
 ## 近义词辨析
-- [词汇辨析 mark、symbol、sign、token](https://github.com/yeshiqing/Blog/issues/7)--2022-10-12
+- [词汇辨析 mark、symbol、sign、token、identifier](https://github.com/yeshiqing/Blog/issues/7)--2022-10-12
