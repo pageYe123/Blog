@@ -186,47 +186,61 @@ git diff <commit-1> <commit-2> <文件名>
 
 **三个概念：(working directory)工作目录(add)→(Index)暂存区(commit)→本地版本库**
 
+- 针对工作目录、暂存区、本地版本库的整体重置
+
 `git reset <mode> <commit-id>` 重置为特定 commit
+
+`git reset <mode> HEAD` 重置为 HEAD 提交
 
 三个 mode：
 
-`--mixed` 选项是 git reset 命令的默认选项，git reset [commit] 即等同于 git reset --mixed [commit]。它除了重置提交历史，还会清空暂存区。
+```shell
+# 更改本地版本库，文件还原至暂存区，不会对工作目录进行任何更改。
+git reset --soft HEAD~1
 
-`--soft`更改本地版本库，文件还原至暂存区，不会对工作目录进行任何更改。
+# 默认选项，会清空暂存区
+git reset
+# 等价于
+git reset --mixed 
+# 等价于
+git reset --
 
-`--hard`连工作目录里的文件都还原，但不能删除 untracked 的文件。
-
-
-- 场景：单个文件移出暂存区
+# 连工作目录里的文件都还原，但不能删除 untracked 的文件。
+git reset --hard
 ```
-git reset HEAD <file>
-```
 
-- 场景：全部文件移出暂存区（清空暂存区）
+- 场景：重置为之前的版本
+
+`git reset` 默认为 HEAD，回退到当前版本，等同于`git reset HEAD`
+
+`git reset HEAD^` 回退所有内容到上一个版本，等价于git reset HEAD~1
+
+`git reset HEAD^^^` 等价于`git reset HEAD~3`回退到此版本之前的第3个版本。
+
+
+- 场景：单个文件、目录移出暂存区
+
 ```
-git reset 等价于 git reset --mixed HEAD
+git reset <file>
 ```
 
 - 场景：取消本次提交，变更退回至暂存区
 ```
-git reset --soft HEAD
+git reset --soft HEAD~1
 ```
 
-- 场景：还原工作目录中的单个文件
+注明：`git reset --soft HEAD` 无效。
+
+- 场景：从本地版本库还原工作目录中的单个文件
+    前提：本地版本库 HEAD commit 中必须有这个文件。
+
 ```
 git checkout HEAD -- <file>
 等价于
 git restore <file>
 ```
-注明：`git reset --hard <file>` 无效
+注明：`git reset --hard <file>` 无效。
 
-- 场景：重置为之前的版本  
-
-`git reset HEAD` 回退到表示当前版本
-
-`git reset HEAD^` 回退所有内容到上一个版本，等价于git reset HEAD~1
-
-`git reset HEAD^^^` 等价于`git reset HEAD~3`回退到此版本之前的第3个版本。
 
 ### git revert：撤销特定commit
 
