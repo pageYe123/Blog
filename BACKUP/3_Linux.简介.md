@@ -38,6 +38,8 @@ touch Foobar.md
 touch foobar.md
 ```
 
+ 这也是[为什么文件名要小写](https://www.ruanyifeng.com/blog/2017/02/filename-should-be-lowercase.html)的原因之一。
+
 如果硬要在图形化界面手动创建`foobar.md`，会提示：
 
 > 已有相同名称的文件或文件夹。若替换，则会覆盖其当前内容。
@@ -55,3 +57,17 @@ touch foobar.md
 如果把 `127.0.0.1 localhost` 去掉，系统还是会默认将`localhost`指向`127.0.0.1`，除非你把 localhost 指向其他 ip 地址，不过这是不推荐的做法。
 
 修改`etc/hosts`文件需要系统管理员权限。
+
+## Shell
+
+Mac 的 Shell 种类众多，常见的有：
+
+- Bourne Shell（/bin/sh）
+- Bourne Again Shell（/bin/bash）
+- C Shell（/bin/csh）
+- K Shell（/bin/ksh）
+- zsh（bin/zsh）
+
+不同 shell 的命令会有不同。比如 bash 的`shopt`命令在 zsh 中就没有。
+
+注意：任何系统的 **Shell 变量都是大小写敏感。**
