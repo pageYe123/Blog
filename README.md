@@ -30,5 +30,5 @@ My personal blog using issues and GitHub Actions (随意转载，无需署名)
 - [我的第一个 node.js 脚本](https://github.com/yeshiqing/Blog/issues/5)--2022-10-11
 ## shell script
 - [我的第一个 node.js 脚本](https://github.com/yeshiqing/Blog/issues/5)--2022-10-11
-## 近义词辨析
+## 近义辨析
 - [词汇辨析 mark、symbol、sign、token、identifier](https://github.com/yeshiqing/Blog/issues/7)--2022-10-12
