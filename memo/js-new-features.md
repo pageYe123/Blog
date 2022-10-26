@@ -1,5 +1,32 @@
 # JS 新语法
 
+## Map 和 WeakMap 的区别
+
+1. Map对象的键可以是任何类型，但 WeakMap 对象中的键只能是对象引用。
+2. WeakMap 不能包含无引用的对象，否则会被自动清除出集合（垃圾回收机制）。 
+3. WeakMap 对象是不可枚举的，无法获取大小。也无法清空。
+
+```js
+let weakmap = new WeakMap();
+(function () {
+    let o = { n: 1 };
+    weakmap.set(o, "A");
+})();  // here 'o' key is garbage collected
+```
+
+```js
+let obj1 = {}
+let obj2 = {}
+let weakmap_1 = new WeakMap([[obj1, 2], [obj2, 5]]); // obj1 作为 key，2 作为 value
+console.log(weakmap_1.get(obj2)); // 5
+// 等价于
+let weakmap_2 = new WeakMap()
+weakmap_2.set(obj1, 2)
+weakmap_2.set(obj2, 5)
+```
+
+
+
 ## 箭头函数
 
 ```javascript
@@ -32,9 +59,34 @@ let arr3 = [7,8,9]
 arr = arr.concat(arr1).concat(arr2).concat(arr3)
 ```
 
+## 属性的简洁表示法
+
+ES6 允许在大括号里面，直接写入变量和函数，作为对象的属性和方法。
+
+```js
+let foo = 'bar';
+let baz = {foo};
+baz // {foo: "bar"}
+
+// 等价于
+const baz = {foo: foo};
+```
+
+例二：
+
+```js
+let name = 'jeffrey'
+let age = 18
+let str = JSON.stringify({name,age})
+// 等价于
+JSON.stringify({name: name, age: age})
+```
+
+
+
 ## 对象的解构赋值
 
-语法：`const {对象的属性名} = 对象`
+语法：`let {对象的属性名} = 对象`
 
 作用：相当于将目标对象自身的所有可遍历的（enumerable）、但尚未被读取的属性，分配到指定的对象上面。所有的键和值，都会拷贝到新对象上面。
 
@@ -54,11 +106,13 @@ let foo = obj.foo
 let { log, sin, cos } = Math;
 
 // 例二
-const { log } = console;
+let { log } = console;
 log('hello') // hello 
 ```
 
 上面代码的例一将 `Math` 对象的对数、正弦、余弦三个方法，赋值到对应的变量上，使用起来就会方便很多。
+
+
 
 ## new.target
 
