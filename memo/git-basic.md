@@ -10,7 +10,7 @@ git config --global core.whitespace cr-at-eol # 消除 git diff 中的 ^M
 git config --global core.quotepath false # 应对 git status 含中文的文件（夹）名显示为八进制的字符编码
 git config --global init.defaultBranch master # 默认分支设置
 git config --global pull.rebase false # git pull 时默认用 git merge 来合并代码，应对 git pull 警告
-# 为 git 设置代理，注意端口号一定要设对
+# 为 git 设置代理，注意端口号一定要设对。如果是用SSH协议，则不走http代理。
 git config --global http.proxy 'socks5://127.0.0.1:51833'
 git config --global https.proxy 'socks5://127.0.0.1:51833'
 # 避免提交的文件太大(默认是1M)导致 push 失败，或下载的文件太大导致读取失败。
@@ -153,9 +153,17 @@ git rm -r --cached .
 
 ### stash（藏匿）当前修改
 `git stash`  
-实际应用中推荐给每个 stash 加一个 message，用于记录版本：`git stash save "test-cmd-stash"`
+实际应用中推荐给每个 stash 加一个 message，用于记录版本信息
 
-### 重新应用缓存的 stash
+```Shell
+git stash save 'test-git-stash'
+# 等价于
+git stash -m 'test-git-stash'
+```
+
+
+
+### 重新加载缓存的 stash
 `git stash pop`
 
 ### 查看现有 stash
