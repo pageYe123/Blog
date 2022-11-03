@@ -1,5 +1,27 @@
 # JS 新语法
 
+## JS 模块
+
+变量、函数可以作为模块导出导入。
+
+```js
+// 默认导出给外部使用
+export default c
+import c from './xxx.js' /*注意导入时不能加花括号*/
+/*等价于*/ import anotherName from './xxx.js' 
+
+// 命名导出与导入，模块名称必须一致，或用重命名导出
+export { c }
+import { c } from './xxx.js' 
+/*等价于*/ import { c as anotherName } from './xxx.js' 
+
+// 重命名导出与导入
+export { c }
+import { c as x } from './xxx.js'
+```
+
+
+
 ## Map 和 WeakMap 的区别
 
 1. Map对象的键可以是任何类型，但 WeakMap 对象中的键只能是对象引用。
