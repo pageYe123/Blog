@@ -529,5 +529,21 @@ git pull origin master --allow-unrelated-histories
 
 
 
+> kex_exchange_identification: Connection closed by remote host
+
+```
+➜  githubBlog git:(master) git pull
+kex_exchange_identification: Connection closed by remote host
+Connection closed by 20.205.243.166 port 22
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+```
+
+解决方案：
+
+没有查到明确的解决方案，过了一会再试就好了，归因于网络原因。
+
 
 
