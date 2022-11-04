@@ -20,11 +20,31 @@ export { c }
 import { c as x } from './xxx.js'
 ```
 
+## new Map()
 
+```js
+// 语法
+new Map(iterable)
+
+// 示例
+const myMap = new Map([
+  [1, 'one'],
+  [2, 'two'],
+  [3, 'three'],
+]);
+```
+
+JS 内建的可迭代对象：
+
+- 非 weak 的数据结构，包括 Array，Set，Map
+- String 对象
+- 类数组
+    - DOM 中的 NodeList 对象、HTMLCollection 对象
+    - 函数的 arguments 属性，以及函数内部 arguments 局部变量。
 
 ## Map 和 WeakMap 的区别
 
-1. Map对象的键可以是任何类型，但 WeakMap 对象中的键只能是对象引用。
+1. Map 对象的键可以是任何类型，但 WeakMap 对象中的键只能是对象引用。
 2. WeakMap 不能包含无引用的对象，否则会被自动清除出集合（垃圾回收机制）。 
 3. WeakMap 对象是不可枚举的，无法获取大小。也无法清空。
 

@@ -82,5 +82,17 @@ ele { overflow: -moz-scrollbars-none; }
 ele { -ms-overflow-style: none; }
 ```
 
+CSS 强调色（accent-color 属性）改变HTML原生表单元素配色
+
+```css
+/* https://web.dev/i18n/zh/accent-color */
+/* input radio checkbox range 内置配色方案就变了 */
+:root {
+   accent-color: deeppink; 
+}
+```
+
+
+
 ## HTML
 
