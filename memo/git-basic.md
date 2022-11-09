@@ -217,13 +217,13 @@ git reset --
 git reset --hard
 ```
 
-- 场景：重置为之前的版本
+- 场景：撤销提交，回退为之前的版本，保留工作目录中的文件
 
 `git reset` 默认为 HEAD，回退到当前版本，等同于`git reset HEAD`
 
-`git reset HEAD^` 回退所有内容到上一个版本，等价于git reset HEAD~1
+`git reset HEAD^` 回退所有内容到上一个版本，等价于`git reset HEAD~1`
 
-`git reset HEAD^^^` 等价于`git reset HEAD~3`回退到此版本之前的第3个版本。
+`git reset HEAD^^^`回退到此版本之前的第3个版本，等价于`git reset HEAD~3`。
 
 
 - 场景：单个文件、目录移出暂存区

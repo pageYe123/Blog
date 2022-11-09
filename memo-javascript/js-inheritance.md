@@ -76,4 +76,3 @@ cat.sayAge() // 1
 cat.jump() // 'cat jump'
 ```
 
-## 

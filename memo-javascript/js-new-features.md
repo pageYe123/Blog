@@ -20,6 +20,8 @@ export { c }
 import { c as x } from './xxx.js'
 ```
 
+注意`import`语法中，相对路径必须有`./`，否则报错。
+
 ## new Map()
 
 ```js
