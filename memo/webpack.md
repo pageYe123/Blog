@@ -15,7 +15,7 @@ yarn add webpack@4 webpack-cli@3 --dev
 npm install webpack@4 webpack-cli@3 --save-dev
 ```
 
-使用`webpack`命令：
+### 使用`webpack`命令
 
 ```shell
 node_modules/.bin/webpack
@@ -29,7 +29,7 @@ Windows 上需要将`;`换成`&&`：`"build": "rm -rf dist && webpack"`
 
 
 
-package.json 中使用「自定义配置文件」：
+使用「自定义配置文件」。在 package.json 中修改：
 
 ```shell
 "scripts": {
@@ -39,9 +39,11 @@ package.json 中使用「自定义配置文件」：
 
 ## loader
 
-css-loader：将 CSS 文件引入 JS。
+style-loader：将 JS 字符串转为`<style>`节点，插入到`<head>`节点中。
 
-style-loader：将 JS 中的 CSS 转为 `<style>`标签插入到`<head>`标签中。
+css-loader：将 CSS 转化为 JS 字符串（CommonJS 模块）。
+
+[sass-loader](https://webpack.docschina.org/loaders/sass-loader/)：Sass 编译为 CSS
 
 ## plugins
 
@@ -52,7 +54,7 @@ webpack-dev-server：
 - 文件内容变化就自动转译代码，并自动刷新页面
 - 提供 server 方便开发预览
 
-mini-css-extract-plugin：将 CSS 代码提取成单独的文件。
+mini-css-extract-plugin：将多个 CSS 代码提取成单独的一个文件。
 
 
 
@@ -90,3 +92,9 @@ module.exports = {
 
 - 降级 node 到16（卸载重装）(推荐)
 - 按照官方 issue 推荐，先执行`export NODE_OPTIONS=--openssl-legacy-provider`, 再执行 webpack 命令，见[原文](https://github.com/webpack/webpack/issues/14532#issuecomment-947012063)。
+
+### Could not load content for webpack://...
+
+uncheck the `Enable JavaScript source maps` in Chrome Dev Tool.
+
+![Enable JavaScript source maps](https://i.stack.imgur.com/QpFQ7.png)
