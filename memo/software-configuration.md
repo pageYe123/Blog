@@ -8,6 +8,8 @@
     搜索包含指定内容的文件：`in + 文件内容字符串`
     在 Default Results 面板可设置“搜索范围 search scope”。
     参考：[Alfred系列教程---文件搜索](https://www.jianshu.com/p/2ce1dd633f4f)
+- 隐藏菜单栏的 icon
+    preference → Appearance → Options → Hide menu bar icon
 
 ## Mac改键软件
 
@@ -87,7 +89,7 @@ Homebrew brew update 长时间没反应：https://juejin.cn/post/693119086229520
 
 <img src="https://wx4.sinaimg.cn/large/6cdfff77gy1h44axmj5zuj20ft0bvgof.jpg" alt="image-20220712180449650"  />
 
-### Shortkeys 插件
+### Chrome Shortkeys 插件
 
 屏蔽浏览器默认快捷键。`chrome://extensions/shortcuts`搜索`UTILITY: Do nothing (disable browser shortcut - experimental)`设置快捷键`⌘+s`，选择“在 Chrome 中”。
 
@@ -126,194 +128,6 @@ ClashX > 配置 > 打开本地配置文件夹，找到“config.yaml”打开编
 
     
 
-## VSCode
-
-### 编辑器
-
-- 自动换行设置
-    命令：toggle word wrap。当行内容过长时，可自动换行。
-
-- 每一行外嵌套列表标签
-
-选中5行文字→命令：Emmet wrap→输入缩写包围个别行→`ul>li*`
-
-```
-第一张专辑《Jay》就获得金曲奖最佳专辑，同时也入围当年最佳制作人、最佳作曲人和最佳新人奖三项大奖。同年，获得新加坡金曲奖最佳新人奖。
-第二张专辑《范特西》获得包括最佳专辑、最佳编曲等在内的五个金曲奖奖项。
-第四张专辑《叶惠美》获得最佳专辑、最佳音乐视频导演奖
-```
-
-- JavaScript 代码自动加分号。Settings 搜索。JavaScript › Format: Semicolons。
-
-### 插件
-
-- 配置中文。插件搜索`Chinese`，重启编辑器，呈现中文
-- 提供中文分词，支持中文词汇之间光标移动（word navigation）。插件搜索`CJK Word Handler`。
-
-### settings 配置：
-
-位置：左上角 Code→Preference→Settings
-
-- 代码格式化
-
-    - HTML`<pre>`标签中的内容不进行格式化。
-        搜索：Unformatted，进行设置。
-
-        ```json
-        "comment":"settings.json",
-        "html.format.contentUnformatted": "pre,code,textarea",
-        "html.format.unformatted": "wbr",
-        ```
-
-- 单词拼写检查：
-    `C Spell: Enabled`
-
-- 打开 settings.json 文件
-    `command+shift+p`输入`Open Settings(JSON)`
-
-- Files: auto Save
-    选择 onFocusChange 
-
-- Editor: Format On Save
-    打钩
-
-- Editor > Suggest: Show Words
-    取消打钩，这样设置 snippets 会排在第一个，按下 tab 键后直接就打出来。否则词汇提示排在第一个。
-
-- Unicode Highlight: Ambiguous Characters
-    取消打钩。否则提示用英文半角符号代替中文全角符号。
-
-- 方应杭推荐 vscode 使用 [Fira Code 字体](https://github.com/tonsky/FiraCode)
-
-    - 配合 Font Ligatures 的配置，`===`等符号才有特殊效果。
-    - 当前 font-family：`'Fira Code', Menlo, Monaco, 'Courier New', monospace`
-
-- Workbench: Startup Editor 可以设置关闭 welcomePage
-
-- 自定义单词分隔符：搜索 wordseparator。
-
-### snippets
-
-命令搜：Configure User Snippets
-
-目前使用搭配：
-
-```json
-"editor.tabCompletion": "onlySnippets" 
-"editor.quickSuggestions": {
-  "other": "on"
-}
-```
-
-#### 前置条件
-
-想使用 snippets 必须设置 
-
-```json
-
-"editor.tabCompletion": "on" // 插入最佳匹配项（quickSuggestions→other→inline 时直接忽略其他匹配项）
-// 或者
-"editor.tabCompletion": "onlySnippets" 
-"editor.quickSuggestions": {
-        "other": "inline",  // 直接在编辑器中展示扩写后的内容（ghost text 模式），优先显示插件的代码片段
-  			// "other":"on",     // 会跳出一个窗口展示扩写后的内容（suggest widget 模式），优先显示用户自定义的代码片段
-  			// "other":"off",		 // 没有任何代码补全提示。按 tab 键会自动补全自定义和内置的 snippets
-        "comments": "off",
-        "strings": "off"
-}
-```
-
-`onlySnippets`在 editor.quickSuggestions.other 是 off 时效果最好。因为开启 quicksuggestion  后必须等待提示稳定后，按tab才有效。当高速输入时，提示会经常变，比如输入`for`的前两个字母时，会先蹦出来`focus`的提示，输入第三个字母时才稳定回`for`的提示。
-
-但是如果这样做，就没有任何代码补全提示。
-
-#### 内置的 JavaScript snippet
-
-现在可以禁用 VSCode 中的内置扩展。Extensions选项卡，搜索`@builtin JavaScript`，找到 JavaScript Language Basics 插件。这个插件中已经内置了很多 snippets，如`foreach`、`fori`、`forin`等等。这些内置的片段无法修改。
-
-如果内置片段与用户定义片段，前缀冲突怎么办？看`"editor.tabCompletion"`的值，
-
-```json
-"editor.tabCompletion":"on" // 以 user snippets 为最佳匹配填入。
-// 但如果用户片段的前缀是关键字，比如 for 就无法通过 tab 键触发，这是 "on" 选项的一个弊端。
-"editor.tabCompletion":"onlySnippets" // 将两个冲突代码显示，让用户来选。
-```
-
-### Emmet
-
-官方文档：
-
-- [Emmet 有哪些 html 缩写](https://github.com/emmetio/emmet/blob/master/snippets/html.json)
-
-- [Emmet 有哪些 css 缩写](https://github.com/emmetio/emmet/blob/master/snippets/css.json)
-
-常用缩写记录：
-
-```json
-{
- "link:favicon": '<link rel="shortcut icon" type="image/x-icon" href="favicon.png">',
- "pos:a": "position:absolute",
-  "dib": "display:inline-block"
-}
-```
-
-#### Emmet: 使用内联形式补全代码
-
-按 tab 键之前，使用内联补全扩展代码。
-
-1）settings 中 Emmet: Use Inline Completions 打钩
-
-2）Editor: Quick Suggestions 中 other 选择 inline 或 off
-
-#### 修改 Emmet 默认代码片段
-
-- meta:vp 完整内容
-
-```html
-<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-```
-
-在`/Users/jeffrey/Library/Application Support/Code/User`中新建文件夹 Emmet_custom。在 Settings 中Emmet: Extensions Path，添加 `/Users/jeffrey/Library/Application Support/Code/User/Emmet_custom`。
-
-在文件夹中新建 `snippets.json`，注意该文件必须命名为`snippets.json`，这是官方文档的要求。并在 snippets.json 中新增如下代码：
-
-```json
-{
-    "html": {
-        "snippets": {
-            "meta:vp": "meta[name=viewport content='width=${1:device-width}, initial-scale=${2:1.0}, minimum-scale=${3:1.0}, maximum-scale=${4:1.0}, user-scalable=${5:no}']"
-        }
-    }
-}
-```
-
-参考：
-
-[VSCode 官方文档：Using custom Emmet snippets](https://code.visualstudio.com/docs/editor/emmet#_using-custom-emmet-snippets)
-
-[中文版：VSCode中Emmet修改默认html或css模板snippets](https://blog.csdn.net/weixin_42655717/article/details/112533401)
-
-### 设置快捷键
-
-操作：Code→Preferences→Keyboard Shortcuts
-
-### 底部状态栏
-
-鼠标右键可以配置在状态栏中显示的插件。我把 Code Spell Checker 关了。
-
-### 其他
-
-- 更新失败 Could not create temporary directory: Permission denied。参考：[mac vscode 更新失败 解决办法](https://segmentfault.com/a/1190000012881106)
-
-    ```shell
-    // 1. 这一步是需要输入密码的，更改文件夹的拥有权限
-    sudo chown $USER ~/Library/Caches/com.microsoft.VSCode.ShipIt/
-    
-    // 2. xattr 命令删除文件夹下所有文件的 quarantine 属性
-    xattr -dr com.apple.quarantine /Applications/Visual\ Studio\ Code.app
-    ```
-
-    xattr 命令，参考：[展示和修改扩展属性](https://blog.csdn.net/lovechris00/article/details/113060237)
 
 
 

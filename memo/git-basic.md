@@ -26,6 +26,22 @@ git config --global core.excludesfile ~/.gitignore_global
 
 注意：请确保已安装 VSCode，并且 `code` 命令已加入环境变量。必须加`--wait`参数，否则`git commit -v`会报错。
 
+
+
+**配置 ssh config**，应对`git@github.com:<user>/<repo>.git`的下载上传。外加配置公钥私钥
+
+```shell
+Host github # HostName 的别名
+    HostName  github.com
+    User git
+    AddKeysToAgent yes
+    IdentityFile ~/.ssh/id_ed25519 # 指定的私钥地址，默认为 ~/.ssh/id_rsa
+    # SSH 代理 注意端口号和代理终端的保持一致
+    # ProxyCommand /usr/bin/nc -X connect -x 127.0.0.1:51837 %h %p
+```
+
+
+
 ## 本地仓库的创建
 
 使用 Git 来对现有的项目进行管理，在现有目录中初始化仓库。
@@ -139,7 +155,7 @@ doc/**/*.txt
 
 ```
 
-有时会发现 .gitignore 规则不生效。原因是 .gitignore 只能忽略那些原来没有被 track 的文件，如果某些文件已经被纳入了版本管理中，则修改 .gitignore 是无效的。
+有时会发现 .gitignore 规则不生效。原因是 .gitignore 只能忽略那些原来没有被 track 的文件，**如果某些文件已经被纳入了版本管理中，则修改 .gitignore 是无效的。**
 
 解决方法：先把文件改成 untracked 状态，然后再提交。
 
@@ -517,6 +533,8 @@ git config --global http.lowSpeedTime 999999
 
 ## 解决报错
 
+**报错1：**
+
 > fatal: refusing to merge unrelated histories
 
 场景：github 上新建了仓库包含一次提交，本地 git init 之后也有提交，那么本地仓库和远程仓库 git pull 时，git 无法确定谁作为首次提交，于是 git 认为这两者的分支是分离的（divergent）、历史是没有关联的（unrelated）。 
@@ -527,7 +545,7 @@ git config --global http.lowSpeedTime 999999
 git pull origin master --allow-unrelated-histories
 ```
 
-
+**报错2：**
 
 > kex_exchange_identification: Connection closed by remote host
 
@@ -541,9 +559,23 @@ Please make sure you have the correct access rights
 and the repository exists.
 ```
 
+~~解决方案：没有查到明确的解决方案，过了一会再试就好了，归因于网络原因。~~
+
 解决方案：
 
-没有查到明确的解决方案，过了一会再试就好了，归因于网络原因。
+```shell
+# 使用以下命令 debug 登录过程，以便定位问题
+ssh -v 20.205.243.166:22
+# 仔细阅读返回信息
+```
+
+过了一会`git pull/push`可以了，是因为没有用`20.205.243.166:22`，更换了节点。是这个节点有问题。
+
+
+
+
+
+
 
 
 

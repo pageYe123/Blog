@@ -43,7 +43,15 @@ style-loader：将 JS 字符串转为`<style>`节点，插入到`<head>`节点�
 
 css-loader：将 CSS 转化为 JS 字符串（CommonJS 模块）。
 
-[sass-loader](https://webpack.docschina.org/loaders/sass-loader/)：Sass 编译为 CSS
+[sass-loader](https://webpack.docschina.org/loaders/sass-loader/)：将 Sass 编译为 CSS
+
+less-loader：将 Less 编译为 CSS
+
+stylus-loader: 将 Stylus 编译为 CSS
+
+file-loader：将 png、jpg、svg、gif 等文件变为文件路径
+
+babel-loader：Webpack 内置 loader，将高版本 JS 转为低版本 JS
 
 ## plugins
 
@@ -56,7 +64,11 @@ webpack-dev-server：
 
 mini-css-extract-plugin：将多个 CSS 代码提取成单独的一个文件。
 
+## loader 和 plugin 的区别
 
+loader 是加载器，加载资源文件，如 CSS、图片或 jsx、coffee 等其他语法集。
+
+plugin 扩展 Webpack 的功能。loader 也扩展功能，但它只专注于转化文件（transform），plugins 功能更丰富，不局限于资源加载。
 
 ## webpack.config.js
 
@@ -79,6 +91,28 @@ module.exports = {
 
 - `[contenthash]` - 根据文件内容产生一个 md4-hash 值（e.g. `[contenthash].js` -> `4ea6ff1de66c537eb9b2.js`）。**文件名带上哈希值，可用于更新 HTTP 缓存。**因为缓存是跟着文件名走的，改了文件名就是一个硬盘上没有的新文件，只能发送 HTTP 请求来获取文件。
     背景知识：HTTP 响应头中 Cache-Control 字段用于设置缓存，决定文件是发 HTTP 请求还是从硬盘缓存读取。
+
+## Webpack 懒加载
+
+```js
+// lazy.js
+// export default function lazy() {
+//    console.log('我是一个懒加载的模块');
+// }
+
+// index.js
+let button = document.createElement('button')
+button.innerText = '懒加载'
+button.onclick = () => {
+    let promise_lazy = import('./lazy.js') // 返回一个 promise 对象
+    promise_lazy.then((module) => {
+        module.default()
+    }, () => {
+        console.log('模块加载错误');
+    })
+}
+div.appendChild(button)
+```
 
 
 

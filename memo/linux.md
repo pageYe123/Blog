@@ -251,7 +251,12 @@ file HelloWorld.c
 # 返回：HelloWorld.c: c program text, ASCII text
 ```
 
+#### ls 命令
 
+```shell
+# 查看软链接的实际位置
+ls -al 
+```
 
 #### mkdir 命令
 
@@ -533,6 +538,23 @@ Mac「活动监视器」中的端口并不是 TCP 端口号，而是 Mac 内部�
 [curl 的用法指南](https://www.ruanyifeng.com/blog/2019/09/curl-reference.html)
 
 [curl 命令详解](http://aiezu.com/article/linux_curl_command.html)
+
+#### ssh 命令
+
+用于发起 SSH（Secure Shell Protocol）协议的登录。
+
+配置文件地址：
+
+- `~/.ssh/config`针对某用户
+- `/etc/ssh/ssh_config`针对系统所有用户
+
+```shell
+# 尝试登录某域名。-v 表示显示详细过程。
+ssh -v <Host> # 配置文件中必须声明这个 <Host>
+ssh -v github
+```
+
+
 
 #### sed 命令
 
