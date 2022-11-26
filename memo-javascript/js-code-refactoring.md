@@ -1,4 +1,4 @@
-# JS 代码优化（重构）经验
+# JS 代码重构经验
 
 ## 重构是什么？
 
@@ -19,11 +19,13 @@
 
 - 简化代码，删除「注释掉的代码」（[commented out code](https://codeql.github.com/codeql-query-help/cpp/cpp-commented-out-code/#commented-out-code)），尽量删除“无用”的代码。说它“无用”是需要主观判断的，比如这个工具函数当前已经不用了，并且未来也不太可能用，就要删掉。
 
-- 解耦模块间的依赖，对代码逻辑进行优化。对于没有必要的重复执行的部分改变逻辑。比如执行函数 a 过程中调用了 b 函数，b 函数里面执行一个 c 函数，但是接下来 a 过程又要调用 c 函数。给A和C解耦，可以让 c 函数只调用一次，提高代码性能。
+- 逻辑优化，属性归谁管就挂载在哪个对象上，归属的逻辑要正确。比如`$hijack`上的`websiteScreen` 、`pauseVideo`等方法应该挂载在`$eventsHandler`上。
+
+- 逻辑优化，减少没有必要的重复执行的部分，本质是解耦模块间的依赖。比如执行函数 a 过程中调用了 b 函数，b 函数里面执行一个 c 函数，但是接下来 a 过程又要调用 c 函数。给A和C解耦，可以让 c 函数只调用一次，提高代码性能。
 
     | 解耦之前                                                     | 解耦之后                                                     |
     | ------------------------------------------------------------ | ------------------------------------------------------------ |
-    | ![截屏2022-11-21 20.39.16](https://upload-images.jianshu.io/upload_images/1231311-e7b6ab5ce0a8187a.png) | ![截屏2022-11-21 20.39.29](https://upload-images.jianshu.io/upload_images/1231311-01195b02fa8ab826.png) |
+    | ![截屏2022-11-21 20.39.29](https://upload-images.jianshu.io/upload_images/1231311-01195b02fa8ab826.png) | ![截屏2022-11-21 20.39.16](https://upload-images.jianshu.io/upload_images/1231311-e7b6ab5ce0a8187a.png) |
 
 
 - 统一变量、函数的命名规则。Follow the similar naming conventions throughout the project.

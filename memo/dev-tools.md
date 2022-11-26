@@ -13,9 +13,12 @@ node-dev server.js
 
 - 添加默认的文件模版
     settings → File and Codes Templates → Vue Single File Component → 编辑
-
 - Vue 文件中 `<script>`、`<style>`中的代码保持初始缩进，即左侧留出空行。
     Editor → Code Style → Vue template → Indent children of top-level tag
+- 启用 CSS 缩写，按 tab 触发缩写。`jf:c`会变成`justify-content: center;`
+    Preferences → Emmet → CSS → Enable fuzzy search among CSS abbreviations
+- 修改 tab 缩写模版
+    Preferences → Live templates
 
 ### 2.1 快捷键
 
@@ -25,7 +28,8 @@ node-dev server.js
 | Go to File                                                   | cmd + p                                    |
 | Switcher                                                     | control + tab                              |
 | Join Lines 合并行                                            | cmd + shift + j                            |
-| Move Statement up/down 上/下移一行<br />对 HTML 标签而言，成对的`<div>`、`</div>`即使不在同一行，也会同时一起移动。 | option + up/down                           |
+| Move Statement up/down<br />对 HTML 标签而言，成对的`<div>`、`</div>`即使不在同一行，也会同时一起移动。 | cmd + shift + up/down                      |
+| Move Line up/down                                            | option + up/down                           |
 
 ## 三、VSCode
 
@@ -33,16 +37,20 @@ node-dev server.js
 
 操作：Code→Preferences→Keyboard Shortcuts
 
-| command / description            | hotkeys                         |
-| -------------------------------- | ------------------------------- |
-| Transform to Uppercase           | option + cmd + u                |
-| Go Back \| navigate              | option + -                      |
-| Go Forward \| navigate           | option + shift + -              |
-| Go to File                       | cmd + p                         |
-| Show All Commands                | cmd + shift + p                 |
-| Change Language Mode             | control + p                     |
-| Expand Selector 选中光标所在单词 | Hyper + s                       |
-| 给单词加单（双）引号             | Hyper + s 之后按 ' 或 shift + ' |
+| command / description                                        | hotkeys                          |
+| ------------------------------------------------------------ | -------------------------------- |
+| Transform to Uppercase                                       | option + cmd + u                 |
+| Go Back \| navigate                                          | option + -                       |
+| Go Forward \| navigate                                       | option + shift + -               |
+| Go to File                                                   | cmd + p                          |
+| Show All Commands                                            | cmd + shift + p                  |
+| Change Language Mode                                         | control + p                      |
+| Expand Selector 选中光标所在单词                             | Hyper + s                        |
+| 给单词加单（双）引号                                         | 选中单词后按 ' 或 shift + '      |
+| Change All Occurrences<br />选中单词，在所有相同单词后增加光标 | cmd + F2                         |
+| Rename Symbol 变量重命名<br />与上个命令不同，这个只改变当前作用域的变量 | F2                               |
+| View: Toggle Primary Side Bar Visibility                     | cmd + e                          |
+| File → New Window<br />File → Open rencent                   | cmd + shift + n<br />control + r |
 
 ### 编辑器
 
@@ -110,6 +118,8 @@ node-dev server.js
 
 ### snippets
 
+存放路径：`~/Library/Application\ Support/Code/User/snippets`
+
 命令搜：Configure User Snippets
 
 目前使用搭配：
@@ -121,7 +131,7 @@ node-dev server.js
 }
 ```
 
-#### 前置条件
+**前置条件**
 
 想使用 snippets 必须设置 
 
@@ -143,7 +153,7 @@ node-dev server.js
 
 但是如果这样做，就没有任何代码补全提示。
 
-#### 内置的 JavaScript snippet
+**内置的 JavaScript snippet**
 
 现在可以禁用 VSCode 中的内置扩展。Extensions选项卡，搜索`@builtin JavaScript`，找到 JavaScript Language Basics 插件。这个插件中已经内置了很多 snippets，如`foreach`、`fori`、`forin`等等。这些内置的片段无法修改。
 
@@ -173,7 +183,7 @@ node-dev server.js
 }
 ```
 
-#### Emmet: 使用内联形式补全代码
+**Emmet: 使用内联形式补全代码**
 
 按 tab 键之前，使用内联补全扩展代码。
 
@@ -181,7 +191,7 @@ node-dev server.js
 
 2）Editor: Quick Suggestions 中 other 选择 inline 或 off
 
-#### 修改 Emmet 默认代码片段
+**修改 Emmet 默认代码片段**
 
 - meta:vp 完整内容
 

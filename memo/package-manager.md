@@ -27,10 +27,16 @@ npm install -g moduleName # Mac 中 npm 全局安装的模块在 /usr/local/lib/
 
 # 非全局安装，自动生成 package-lock.json
 npm install moduleName # 安装模块到项目目录下
-
-npm install -save moduleName # -save 的意思是将模块安装到项目目录下，并在package.json的dependencies字段写入依赖。
- 
+npm install -save moduleName # -save 的意思是将模块安装到项目目录下，并在 package.json 的 dependencies 字段写入依赖。
 npm install -save-dev moduleName # -save-dev 的意思是将模块安装到项目目录下，并在 package.json 的 devDependencies 字段写入依赖。
+
+# 安装 package.json 里模块依赖
+## 安装 package.json 中所有依赖文件，包括 dependencies、devDependencies
+npm install # 覆盖 package-lock.json
+## 只安装 package.json 中 dependencies（运行依赖）文件
+npm install --dependencies
+## 只安装 package.json 中 devDependencies 字段包含的模块
+npm install --devDependencies
 ```
 
 ### yarn
@@ -46,6 +52,9 @@ yarn add moduleName
 yarn add jquery # 要求 moduleName 全小写，如 jquery
 ## 2）给当前项目的开发环境引入模块依赖。并写入 package.json 的 devDependencies 字段。
 yarn add moduleName --dev
+
+# 安装 package.json 中 dependencies 字段包含的模块
+yarn  # 或者 yarn install
 ```
 
 

@@ -79,11 +79,10 @@ Homebrew brew update 长时间没反应：https://juejin.cn/post/693119086229520
 
 ## Chrome 浏览器
 
-关闭使用文本光标来浏览网页。设置→无障碍→使用文本光标浏览网页→关闭。快捷键 F7 误碰会开启。
+- 插件存放路径：`/Users/jeffrey/Library/Application Support/Google/Chrome/Default/Extensions`
+- 关闭使用文本光标来浏览网页。设置→无障碍→使用文本光标浏览网页→关闭。快捷键 F7 误碰会开启。
 
-
-
-地址栏访问：`chrome://inspect/#devices`
+- 地址栏访问：`chrome://inspect/#devices`
 
 有一个可以调试 Node 的开发工具，我还不知道怎么用。但是一旦添加了监听，http-server 启动的服务就会一直发送请求。
 

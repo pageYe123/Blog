@@ -1,3 +1,16 @@
+## 六种元素
+
+There are six different kinds of elements: 
+
+- [void elements](https://html.spec.whatwg.org/#void-elements) 空元素
+- [the `<template>` element](https://html.spec.whatwg.org/#the-template-element-2)
+- [raw text elements](https://html.spec.whatwg.org/#raw-text-elements)
+- [escapable raw text elements](https://html.spec.whatwg.org/#escapable-raw-text-elements)
+- [foreign elements](https://html.spec.whatwg.org/#foreign-elements)
+- [normal elements](https://html.spec.whatwg.org/#normal-elements).
+
+参考：https://html.spec.whatwg.org/#elements-2
+
 ## label 标签
 
 关联一个 label 和 input 标签，label 将作为 input 标签的文字说明。
@@ -13,6 +26,19 @@ for 属性指向 input 的 id。效果：点击 label 标签，自动聚焦到 i
 <div>
   <label for="nameInput">用户名<input id="nameInput" type="text" name="name"></label>
 </div>
+```
+
+## 空元素（Void Elements）可以不用闭合
+
+不用写闭合标签，标签末尾也不用写斜杠`/`
+
+空元素可以包括：`area, base, br, col, command, embed, hr, img, input, keygen, link, meta, param, source, track, wbr`
+
+比如
+
+```html
+<input type="text">
+a
 ```
 
 
