@@ -1,3 +1,4 @@
+# Fork: https://github.com/yihong0618/gitblog/blob/master/.github/workflows/generate_readme.yml
 name: Generate GitBlog README
 
 on:
@@ -26,7 +27,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v1
         with:
-          python-version: 3.6
+          python-version: 3.8
 
       - name: Configure pip cache
         uses: actions/cache@v1
@@ -53,7 +54,7 @@ jobs:
       - name: Push README
         run: |
           git config --local user.email "${{ env.GITHUB_EMAIL }}"
-          git config --local user.name "${{ env.GITHUB_EMAIL }}"
+          git config --local user.name "${{ env.GITHUB_NAME }}"
           git add BACKUP/*.md
           git commit -a -m 'update new blog' || echo "nothing to commit"
           git push || echo "nothing to push"
