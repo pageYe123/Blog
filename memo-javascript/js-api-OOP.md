@@ -35,6 +35,7 @@ let a = new A()
 ### 2.1）对象的继承
 
 B 对象通过继承 A 对象，就能直接拥有 A 对象的所有属性和方法。
+
 ![什么是继承](https://upload-images.jianshu.io/upload_images/1231311-7f8bb1046a2588f6.png)
 
 ### 2.2）类的继承——图解

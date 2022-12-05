@@ -571,6 +571,14 @@ ssh -v 20.205.243.166:22
 
 过了一会`git pull/push`可以了，是因为没有用`20.205.243.166:22`，更换了节点。是这个节点有问题。
 
+```shell
+ssh -T git@github.com
+# kex_exchange_identification: Connection closed by remote host
+# Connection closed by 20.205.243.166 port 22
+# 如果成功返回
+# Hi yeshiqing! You've successfully authenticated, but GitHub does not provide shell access.
+```
+
 
 
 
