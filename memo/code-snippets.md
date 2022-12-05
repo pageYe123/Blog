@@ -29,20 +29,19 @@ ele.tagName.toLowerCase() === 'li'
 
 ## CSS
 
-css reset
+css reset，一般作用在元素标签，伪类或伪元素上。
 
 ```css
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 *::after,
 *::before {
     box-sizing: border-box;
 }
-* {
-    margin: 0;
-    padding: 0;
-}
+
 ul,
 ol {
     list-style-type: none;
@@ -54,6 +53,20 @@ img {
 a {
     color: inherit;
     text-decoration: none;
+}
+
+:focus { /* 输入框聚焦时不产生边框*/
+  outline: none; 
+}
+```
+
+一旦用了浮动`float`，必须在浮动元素上加 `.clearfix`
+
+```css
+.clearfix::after {
+  content: '';
+  display: block;
+  clear: both;
 }
 ```
 

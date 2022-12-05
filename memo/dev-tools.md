@@ -27,9 +27,11 @@ node-dev server.js
 | surround with...<br />将代码用...包裹，在 HTML 中经常用      | 选中代码 → `cmd + option + t` → 选择 Emmet |
 | Go to File                                                   | cmd + p                                    |
 | Switcher                                                     | control + tab                              |
-| Join Lines 合并行                                            | cmd + shift + j                            |
+| Join Lines 合并行                                            | cmd + j                                    |
 | Move Statement up/down<br />对 HTML 标签而言，成对的`<div>`、`</div>`即使不在同一行，也会同时一起移动。 | cmd + shift + up/down                      |
 | Move Line up/down                                            | option + up/down                           |
+| Refactor → Rename                                            | F2                                         |
+| Refomat Code                                                 | cmd + l                                    |
 
 ## 三、VSCode
 
