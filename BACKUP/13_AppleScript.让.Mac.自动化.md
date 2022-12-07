@@ -1,7 +1,7 @@
 # [AppleScript 让 Mac 自动化](https://github.com/yeshiqing/Blog/issues/13)
 
-## 基础语法
-### 注释
+## 一、基础语法
+### 1.1 注释
 ```AppleScript
 -- 这是一条注释
 # 这也是一条注释
@@ -11,12 +11,12 @@
 **)
 ```
 
-### 调试
+### 1.2 调试
 ```AppleScript
 log 123
 ```
 
-### 对话框
+### 1.3 对话框
 ```AppleScript
 display dialog "<调试的内容>" -- 注意对象无法转换成字符串，布尔值、数字可以
 
@@ -27,7 +27,7 @@ display dialog "<弹出框显示的内容>" buttons {"OK"} default button 1
 set searchString to text returned of (display dialog "Enter a string to search for:" default answer "" with title "Find Google Chrome Tab")
 ```
 
-### 字符串只支持双引号，不支持单引号
+### 1.4 字符串只支持双引号，不支持单引号
 ```AppleScript
 tell application "Typora"
 end tell
@@ -37,15 +37,29 @@ end tell
 # 由于外部只能用双引号，里面的双引号都要用转义字符
 osascript -e "tell application \"iTerm2\" to set miniaturized of every window to true"
 ```
+
+### 1.5 循环
+```AppleScript
+tell application "System Events"
+	set textBuffer to "你好不？"
+	repeat with i from 1 to count characters of textBuffer
+		set the clipboard to (character i of textBuffer)
+		delay 0.8
+		keystroke "v" using command down
+	end repeat
+end tell
+```
+
 参考资料：
 [AppleScript 入门：探索 macOS 自动化](https://sspai.com/post/46912)
 
-## 查询应用提供的 API
+
+## 二、查询应用提供的 API
 打开「脚本编辑器」→ Window → Library → 添加应用
 
-## 具体应用场景
-### 模拟键盘操作
-在指定程序中模拟键盘按键
+## 三、具体应用场景
+### 3.1.1 模拟键盘操作
+在指定程序中模拟键盘按键。
 ```AppleScript
 tell application "System Events"
     -- 按下 ⌘A
@@ -59,11 +73,21 @@ tell application "System Events"
     key code 126 using command down
 end tell
 ```
+注意：`keystroke`只支持 ASCII 码，不支持中文。
+
+### 3.1.2模拟键盘操作，巧用剪贴板输入中文字符串
+```AppleScript
+set _clipboard to get the clipboard
+set the clipboard to "你我他 123efg"
+tell application "System Events" to keystroke "v" using command down
+delay 0.05
+set the clipboard to _clipboard
+```
+
 参考资料：
 [AppleScript 模拟鼠标键盘操作，实现 macOS 系统的自动化操作 - 少数派](https://sspai.com/post/43758)
 
-
-### 选中指定 title 的 Chrome tab
+### 3.2 选中指定 title 的 Chrome tab
 ```AppleScript
 set tabTitle to "jirengu video hotkeys"
 
@@ -116,7 +140,7 @@ on setActiveTabIndex(t, tabTitle)
 end setActiveTabIndex
 ```
 
-### Chrome 当前 tab 执行 JS
+### 3.3 Chrome 当前 tab 执行 JS
 ```AppleScript
 set jsCode to "alert(1)"
 tell application "Google Chrome" to activate
