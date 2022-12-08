@@ -87,13 +87,16 @@ set the clipboard to _clipboard
 参考资料：
 [AppleScript 模拟鼠标键盘操作，实现 macOS 系统的自动化操作 - 少数派](https://sspai.com/post/43758)
 
-### 3.2 实用的短代码
-
-激活应用：
-```AppleScript
-tell application "Google Chrome" to activate
+### 3.2 激活与打开应用——在 Shell 中使用 AppleScript
+激活应用：如果所有窗口最小化，切换应用后窗口仍然最小化
+```Shell
+osascript -e 'tell application "Google Chrome" to activate'
 ```
-
+打开应用：如果所有窗口最小化，切换应用后还原一个窗口
+```Shell
+open "/Applications/Google Chrome.app"
+```
+以上两句代码均是 Shell 命令。
 
 ### 3.3 选中指定 title 的 Chrome tab
 ```AppleScript
@@ -168,18 +171,8 @@ end tell
 - [Mac AppleScript实现Chrome浏览器自动化](https://blog.csdn.net/Mr17Liu/article/details/116488957)
 - [find a tab by its name in Google Chrome](https://apple.stackexchange.com/questions/273970/applescript-to-find-a-tab-by-its-name-in-google-chrome)
 
-## 四、Shell 与 AppleScript 的结合使用
-### 4.1 激活与打开应用
-激活应用：如果所有窗口最小化，切换应用后窗口仍然最小化
-```Shell
-osascript -e 'tell application "Google Chrome" to activate'
-```
-打开应用：如果所有窗口最小化，切换应用后还原一个窗口
-```Shell
-open "/Applications/Google Chrome.app"
-```
-
-##  五、AppleScript 脚本
+##  四、AppleScript 脚本
+应用场景 1：英文输入法状态按快捷键输入中文顿号。
 ```AppleScript
 #! /usr/bin/env osascript
 --用于在英文输入法状态按 caps_lock+\ 输入中文顿号，结合 karabiner 使用
