@@ -1,3 +1,39 @@
+## 8 种数据类型
+
+- 7 种基本数据类型（primitive data type）：
+    null undefined number bigint string boolean symbol
+- 对象类型：object
+
+## 10 个 falsy 值
+
+这 10 个值可分为四类：
+
+1. null undefined NaN 
+
+2. 0 -0 0n 
+
+3. ''、""、``
+
+4. 非 IE 浏览器中的：`document.all` 
+
+## 对象的键的类型：string 或 symbol
+
+ES6 新增 symbol 数据类型，键的类型既可以是 string，也可以是 symbol。
+
+```js
+const symbol = Symbol(1);
+let obj = {};
+obj[symbol] = 'Hello';
+
+obj["Symbol(1)"] = "1"
+console.log(obj) // {Symbol(1): '1', Symbol(1): 'Hello'}
+
+obj["Symbol(1)"] = "11"
+console.log(obj) // {Symbol(1): '11', Symbol(1): 'Hello'}
+```
+
+
+
 ## var、function 声明提前
 
 1）`function`声明。函数提升且赋值提升。
@@ -86,7 +122,7 @@ let b = 2
 
 ## 对象的方法不要用箭头函数
 
-想在函数中使用`this`，就不要用箭头函数。因为箭头函数中的`this`是上一作用域中的`this`，而非对象。
+想在对象的方法中使用`this`，就不要用箭头函数。因为箭头函数中的`this`是上一作用域中的`this`，而非调用方法的对象。
 
 ## 对象相等的新理解
 
