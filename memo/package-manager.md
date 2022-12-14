@@ -83,18 +83,19 @@ nrm use taobao
 ### nvm——Node.js 版本管理工具
 
 ```shell
+# 使用系统自带的 node.js
+nvm use system
+# 使用指定版本的 node.js
+nvm use 10.24.1
 # 查看本机当前使用 nvm 安装的 node.js 版本列表
 nvm list
 # 查看远程可用版本号
 nvm ls-remote
-# 安装制定版本的 node.js
+# 安装指定版本的 node.js
 nvm install 10.24.1
 # 卸载指定版本的 node.js
 nvm uninstall 10.24.1
-# 使用指定版本的 node.js
-nvm use 10.24.1
-# 使用系统自带的 node.js
-nvm use system
+
 ```
 
 ### yarn——包管理工具

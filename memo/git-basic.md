@@ -10,25 +10,24 @@ git config --global core.whitespace cr-at-eol # 消除 git diff 中的 ^M
 git config --global core.quotepath false # 应对 git status 含中文的文件（夹）名显示为八进制的字符编码
 git config --global init.defaultBranch master # 默认分支设置
 git config --global pull.rebase false # git pull 时默认用 git merge 来合并代码，应对 git pull 警告
-# 为 git 设置代理，注意端口号一定要设对。如果是用SSH协议，则不走http代理。
+# 为 git 设置代理，注意端口号一定要设对。如果是用SSH协议，则不走 http 代理。
 git config --global http.proxy 'socks5://127.0.0.1:51833'
-git config --global https.proxy 'socks5://127.0.0.1:51833'
-# 避免提交的文件太大(默认是1M)导致 push 失败，或下载的文件太大导致读取失败。
+# 避免提交的文件太大(默认是 1 M)导致 push 失败，或下载的文件太大导致读取失败。
 git config --global http.postBuffer 500M
 # 将 .DS_Store 加入全局的 .gitignore 文件
 echo .DS_Store >> ~/.gitignore_global
 git config --global core.excludesfile ~/.gitignore_global
 ```
 
-`--global`在全局配置，`--local`仅在本项目中配置，`--unset`取消配置  
+1）`--global`在全局配置，`--local`仅在本项目中配置，`--unset`取消配置  
 
-除了通过命令行进行 git 配置，也可直接修改`~/.gitconfig`文件。  
+2）除了通过命令行进行 git 配置，也可直接修改`~/.gitconfig`文件。  
 
-注意：请确保已安装 VSCode，并且 `code` 命令已加入环境变量。必须加`--wait`参数，否则`git commit -v`会报错。
+3）注意：请确保已安装 VSCode，并且 `code` 命令已加入环境变量。必须加`--wait`参数，否则`git commit -v`会报错。
 
+4）**配置 SSH 代理**，应对`git@github.com:<user>/<repo>.git`的下载上传。外加配置公钥私钥。
 
-
-**配置 ssh config**，应对`git@github.com:<user>/<repo>.git`的下载上传。外加配置公钥私钥
+文件地址：`~/.ssh/config`
 
 ```shell
 Host github # HostName 的别名
@@ -37,10 +36,13 @@ Host github # HostName 的别名
     AddKeysToAgent yes
     IdentityFile ~/.ssh/id_ed25519 # 指定的私钥地址，默认为 ~/.ssh/id_rsa
     # SSH 代理 注意端口号和代理终端的保持一致
+    # -X 代理协议。默认为 SOCKS5。支持的协议是 “4” (SOCKS v.4)，“5” (SOCKS v.5)，“connect” (HTTPS proxy)
     # ProxyCommand /usr/bin/nc -X connect -x 127.0.0.1:51837 %h %p
 ```
 
+参考资料：
 
+[git-config Manual Page](https://mirrors.edge.kernel.org/pub/software/scm/git/docs/git-config.html)
 
 ## 本地仓库的创建
 
@@ -54,6 +56,7 @@ git init
 ### 加入暂存区与提交
 
 - 提交工作目录中所有变更文件
+
 ```shell
 git add .
 git commit -m "提交信息"
@@ -64,6 +67,12 @@ git commit -m "提交信息"
 ```shell
 # 只针对 tracked 文件
 git commit -am "提交信息"
+```
+
+- 排除众多文件的某些文件加入暂存区
+
+```shell
+git add memo-javascript/* ':!memo-javascript/js-api-basic.md'
 ```
 
 - 针对单个文件进行提交
@@ -531,6 +540,62 @@ git config --global http.lowSpeedTime 999999
 
 参考：[git clone下载慢的问题](https://www.jianshu.com/p/b662a8b91890) 。修改完之后快很多。
 
+### Git 配置代理
+
+**1) 通过 SSH 协议连接 Git 仓库**
+如果远程仓库地址格式是:
+
+```
+git@github.com:cms-sw/cmssw.git
+ssh://git@github.com/cms-sw/cmssw.git
+```
+
+那么你使用 [SSH protocol](http://git-scm.com/book/en/Git-on-the-Server-The-Protocols#The-SSH-Protocol) 连接远程仓库。
+
+`~/.ssh/config`配置 SSH：，添加如下代码：
+
+```
+Host github.com
+    User          git
+    ProxyCommand  nc -x localhost:1080 %h %p
+```
+
+注意端口号与代理的要保持一致，**并保证代理提供的是 SOCKS5 代理**
+
+**2) 通过 HTTP 或 HTTPS 协议连接 Git 仓库**
+
+如果远程仓库地址格式是:
+
+```
+http://github.com/cms-sw/cmssw.git
+https://github.com/cms-sw/cmssw.git
+```
+
+那么你通过 HTTP 或 HTTPS 协议连接远程仓库。这种情况下 Git 使用 libcurl（[CURL 命令](https://curl.se/docs/manpage.html)）来处理连接。通过设置 `http.proxy` 可以连接到 libcurl 支持的代理协议。libcurl 支持如下协议：SOCKS4, SOCKS4a, SOCKS5。
+
+```
+git config --global http.proxy socks5://localhost:1080
+```
+
+**3) 通过 GIT 协议连接 Git 仓库**
+
+如果远程仓库地址格式是:
+
+```
+git://github.com/cms-sw/cmssw.git
+```
+
+那么你通过 [GIT protocol](http://cms-sw.github.io/git-scm.com/book/en/Git-on-the-Server-The-Protocols#The-Git-Protocol) 连接远程仓库。这种情况下，你需要用一个命令工具，比如最简单的是 [`git-proxy`](https://github.com/finos/git-proxy)，它可以连接 SOCKS5 协议。
+
+通过`core.gitproxy`配置：
+
+```
+git config --global core.gitproxy "git-proxy"
+git config --global socks.proxy "localhost:1080"
+```
+
+
+
 ## 解决报错
 
 **报错1：**
@@ -559,17 +624,27 @@ Please make sure you have the correct access rights
 and the repository exists.
 ```
 
-~~解决方案：没有查到明确的解决方案，过了一会再试就好了，归因于网络原因。~~
+解决方案20221208：通过给 SSH、HTTPS 设置代理，解决这个问题。
 
-解决方案：
+~~解决方案：目前，我通过以下命令增加了一个 [the old PEM format key](https://stackoverflow.com/a/53645530/6309)，并添加到 GitHub ，解决这个问题。~~
 
 ```shell
-# 使用以下命令 debug 登录过程，以便定位问题
+ssh-keygen -t rsa -P "" -m PEM
+```
+
+~~如果再遇到这个问题，可以点击[这个 stackoverflow 问题](https://stackoverflow.com/questions/10127818/ssh-exchange-identification-connection-closed-by-remote-host-under-git-bash)。~~
+
+~~解决方案：没有查到明确的解决方案，过了一会再试就好了，归因于网络原因。过了一会`git pull/push`可以了，是因为`20.205.243.166:22`节点的问题。~~
+
+---
+
+调试 SSH 通信：
+
+```shell
+# 使用以下命令 debug 登录过程，以便定位问题（2022125 根本解析不了）
 ssh -v 20.205.243.166:22
 # 仔细阅读返回信息
 ```
-
-过了一会`git pull/push`可以了，是因为没有用`20.205.243.166:22`，更换了节点。是这个节点有问题。
 
 ```shell
 ssh -T git@github.com
@@ -577,13 +652,10 @@ ssh -T git@github.com
 # Connection closed by 20.205.243.166 port 22
 # 如果成功返回
 # Hi yeshiqing! You've successfully authenticated, but GitHub does not provide shell access.
+
+ssh -v git@github.com
+# 可以查看详细信息
 ```
-
-
-
-
-
-
 
 
 

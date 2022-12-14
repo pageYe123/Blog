@@ -3,28 +3,46 @@
 ## 一、类的语法
 
 ```js
-class Foo {
-    #field = "classFoo" // 私有属性
-    #method() { }       // 私有方法
-    publicProperty = "foo's public property"
-    static isFoo(obj) { // 静态方法。this 指向类 Foo
+class A {
+    #field = "实例的私有属性"         // 实例的私有属性
+    #method() { }                   // 实例的私有方法
+    publicProperty = "实例的公有属性" // 实例的公有属性
+    static isA(obj) {               // 类的静态方法。this 指向类 A
         return #field in obj
     }
-    isFoo() {           // 实例方法。this 指向实例
-        return #field in this
+    constructor() {     // 如果不写 constructor，JS 引擎会自动补全
+        // console.log(this) // 如果子类中调用 super()，那么 this 指向子类的实例
+    }
+    isA() {                  // 实例方法。this 指向实例 a
+        return #field in this// 对私有属性而言。this.#field 是属性值；#field 是属性名
     }
     getField() {
-        console.log(this.#field);
+        console.log(this.#field); // 不加 this. 会报错
     }
-    getMethodName() {
-        console.log(this.#method.name); // 获取私有方法的名字
+    callPrivateMethod() {
+        this.#method();      // 调用私有方法
+    }
+    method() {
+        console.log(this);
+    }
+}
+class B extends A {
+    constructor() {
+        super()        // 意义上等价于 A.call(this)，但语法上不能这样写，会报错
+    }
+    methodOverride() {
+        super.method() // 等价于 super.method.call(this)
+        // ...override
     }
 }
 
-let f = new Foo()
-console.log(f);
-// console.log(f.isFoo());    // true
-// console.log(Foo.isFoo(f)); // true
+let a = new A()
+// console.log(a);
+// console.log(a.isA());    // true
+// console.log(A.isA(a)); // true
+let b = new B()
+// console.log(b)
+// b.methodOverride()
 ```
 
 ### 1.1 `classFoo.prototype`

@@ -9,27 +9,26 @@
     在 Default Results 面板可设置“搜索范围 search scope”。
     参考：[Alfred系列教程---文件搜索](https://www.jianshu.com/p/2ce1dd633f4f)
 - 隐藏菜单栏的 icon
-    preference → Appearance → Options → Hide menu bar icon
+    Alfred Preferences → Appearance → Options（左下角） → Hide menu bar icon
 
-## Mac改键软件
+## Mac Karabiner-Elements
 
-Karabiner-Elements
-
-- 系统偏好设置→安全性与隐私→隐私→输入监听→右键karabiner_observer→手动添加karabiner_grabber，然后两者都打上勾。
-- 把 Karabiner-EventViewer.app 加入「输入监听」。
-- 允许 Karabiner-DriverKit-VirtualHIDDeviceClient  app，进入软件主页面会有提示。
-- Karabiner-EventViewer 用于配置不生效时，调试按键。
-
-配置文件地址：`~/.config/karabiner/karabiner.json`
+见语雀文章：《[Karabiner-Elements 改键配置](https://www.yuque.com/jeffrey-ysq/popkql/lu8f1zfal7df9a4p/edit)》
 
 ## Github 官网
 
+- 开源项目的 contributors
+    
+    > The contributors graph sums weekly commit numbers onto each Sunday, so your time period must include a Sunday.
+    > 贡献者图表每周日汇总本周的提交数量，所以你的时间段必须包括一个星期天。
+    
 - 搜索功能，有限制。
+    
     - 只有小于 384 KB 的文件可搜索。
     - 只有文件少于 500,000 个的存储库可搜索。
     - Only repositories that have had activity or have been returned in search results in the last year are searchable.
     - **解决办法：代码下载到本地，用本地IDE的搜索功能。**
-
+    
 - 如果想搜索 README.md 的内容，可以用指令`<搜索词> filename:readme path:/`，或者直接在项目首页`⌘+f`搜索关键词。
 - 查看 Github 某个仓库大小。
     登录 Github 网页首页，点击右上角自己的头像，下拉菜单中选中`settings`。左侧点击`repositories`，这里就有每个repository对应的存储空间大小。
@@ -66,6 +65,8 @@ Applescript 文件后缀名为`scpt`，可搭配「脚本编辑器」或 Automat
 ![image-20220716114309530](https://wx4.sinaimg.cn/mw690/6cdfff77gy1h48mbz1dgwj20jw04habh.jpg)
 
 - `man curl`中的搜索用`/`不要用`⌘+f`，前者才是全文搜索，后者搜索范围仅限已显示的部分。
+
+- 取消勾选 iTerm2 → secure keyboard entry，否则 iTerm2 打开的新应用都被 iTerm2 盖住。
 
     
 
@@ -127,7 +128,11 @@ ClashX > 配置 > 打开本地配置文件夹，找到“config.yaml”打开编
 
     
 
+## Stack Overflow
 
+- 查看 my watched tags：
+    https://stackoverflow.com/questions/tagged?tab=Unanswered&tagMode=Watched
+- 
 
 
 ## 在线 jsbin

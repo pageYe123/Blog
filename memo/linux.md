@@ -264,8 +264,15 @@ ls -al
 
 #### echo 命令
 
-`echo $?`检验上个命令是否成功执行。返回值是0，代表成功；如果是非零，代表失败。
-有时候一个命令（如`mkdir foo`）执行完，终端控制台没有任何输出。到底执行成功了没有？此时可以用`echo $?`检验。
+- `-n`选项，结尾不换行。
+
+    ```shell
+    echo -n 1 # 输出 1，并且结尾不换行
+    ```
+
+- `echo $?`检验退出`exit`代码。
+    通常用作检验上个命令是否成功执行。返回值是0，代表成功；如果是非零，代表失败。
+    有时候一个命令（如`mkdir foo`）执行完，终端控制台没有任何输出。到底执行成功了没有？此时可以用`echo $?`检验。
 
 #### 查看系统可用 shell
 
@@ -558,32 +565,26 @@ ssh -v github
 
 #### sed 命令
 
-配合正则表达式使用，是文本处理中非常重要的工具。它把当前处理的行存储在临时缓冲区中，接着用sed命令处理缓冲区中的内容，处理完成后，把缓冲区的内容送往屏幕。接着处理下一行，这样不断重复，直到文件末尾。
+配合正则表达式使用，是文本处理中非常重要的工具。它把当前处理的行存储在临时缓冲区中，接着用 sed 命令处理缓冲区中的内容，处理完成后，把缓冲区的内容送往屏幕。接着处理下一行，这样不断重复，直到文件末尾。
 
-- 替换文本中的字符串
+- s 函数 `s/oldStr/newStr/` 替换文本中的字符串
 
 ```shell
-# 命令格式
-sed [options] 'sed 命令' file(s)
+# sed 命令
+# s 函数：替换指定字符，可以用 / 或 # 或 | 分隔
+sed -i '' -E 's/原始字符/替换成的目标字符/' filename
 
-# sed 命令 s 替换指定字符
-sed 's/原始字符/替换成的目标字符' filename
+# -i 选项加 '' 表示没有用于保存备份的 extension。Mac 需要加空字符串，否则报错，Linux 不需要。
+# -E 选项表示拓展的正则表达式，比基本正则表达式更强大，比如支持`[0-9]+`
+
 ## 举例：
-sed 's/51837/51833/' ~/.gitconfig
+sed -i -E 's/51837/51833/' ~/.gitconfig
 ```
 
-需求：批量修改`~/.gitconfig`中重复的部分`proxy = socks5://127.0.0.1:51837`。`~/.gitconfig`文件内无法设置变量，http.proxy和https.proxy每次都要改两遍，很麻烦。
-
-**需要注意：文件内容并没有改变，除非你使用重定向存储输出，只可以追加，不能覆盖。**
+**需要注意**：如果不用 `-i ''`，则原始文件内容并没有改变，除非你使用重定向存储输出，只可以追加，不能覆盖。
 
 ```shell
 sed 's/51837/51833/' ~/.gitconfig >> ~/.gitconfig
-```
-
-怎么才能直接覆盖呢？`-i`选项加`''`表示没有用于保存备份的 extension。Mac系统需要加空字符串，否则报错，Linux 系统则不需要。
-
-```shell
-sed -i '' 's/51837/51833/' ~/.gitconfig
 ```
 
 
@@ -655,9 +656,9 @@ unlink f2    # 等同于 rm -rf f2
 
 创建一个目录文件（文件夹），发现它的硬链接数为2。因为里面有`.`当前目录和`..`上级目录
 
-<img src="https://wx4.sinaimg.cn/large/6cdfff77gy1h4bdbg7ghej20bj0cngnd.jpg" alt="image-20220704205352894" style="zoom: 50%;" />
-
-<img src="https://wx4.sinaimg.cn/large/6cdfff77gy1h4bdbg47blj20cc0d2tbm.jpg" alt="image-20220704205413676" style="zoom:50%;" />
+|                            硬链接                            |                            软链接                            |
+| :----------------------------------------------------------: | :----------------------------------------------------------: |
+| <img src="https://upload-images.jianshu.io/upload_images/1231311-5651342eca4e8178.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这是硬链接" style="zoom:50%;" /> | <img src="https://upload-images.jianshu.io/upload_images/1231311-99ba727d775f5c46.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这是软链接" style="zoom:50%;" /> |
 
 如何查看文件是否为硬链接？看两个文件是否有相同的 inode 号。
 
@@ -689,9 +690,33 @@ unlink f2    # 等同于 rm -rf f2
 
 
 
+#### source 命令
+
+用于在脚本内部加载外部库，使得外部库定义的函数可以在脚本中使用。比如名为 `lib1.sh` 的外部库。
+
+```shell
+#!/usr/bin/env bash
+function echo1(){
+		echo 1111
+}
+```
+
+在脚本中以下内容会输出`1111`。
+
+```shell
+source lib1.sh
+
+# 输出 1111
+echo1
+```
+
+如果是在`~/.zshrc`、`~/.bash_profile`等 Shell 的配置文件(这些文件本质也是 Bash 脚本)中，通过`source`命令引入外部库，那么外部库中的函数可直接在终端当命令使用，而不必在环境变量中添加命令。
+
+
+
 ### 五、命令行终端其他
 
-- 反引号\`与`$()`相同
+- 反引号``` `` ```与`$()`相同
     作用：反引号括起来的字符串被 Shell 解释为命令。在执行时，Shell首先执行该命令，并以它的标准输出取代整个反引号包围的部分。效果同`$() `
 
     ```shell
@@ -743,16 +768,17 @@ unlink f2    # 等同于 rm -rf f2
     适合在后台运行的命令有 find、费时的排序。需要用户交互的命令不要放在后台执行。
 
     后台运行的作业同样会将结果输出到屏幕上，干扰你的工作，如果放在后台运行的作业会产生大量的输出，最好使用下面的方法把它的输出重定向到某个文件中：
-
-```
-command > log 2>&1 & 
-```
-
-command > log 是将 command 的输出重定向到 log 文件，即输出内容不打印到屏幕上，而是输出到 log 文件中。
-2>&1 是将标准错误重定向到标准输出，这里的标准输出已经重定向到了 log 文件，即将标准错误也输出到 log 文件中。最后一个`&`，是让该命令在后台执行。
-试想 2>1 代表什么，2与>结合代表错误重定向，而 1 则代表错误重定向到一个文件 1，而不代表标准输出；换成 2>&1，&与1结合就代表标准输出了，就变成错误重定向到标准输出。
-
-当使用 & 将一个进程放置到后台运行的时候，Shell 会提示这个进程的进程 ID，我们可以使用进程 ID 来终止对应的进程。
+    
+    ```shell
+    command > log 2>&1 & 
+    ```
+    
+    - command > log 是将 command 的输出重定向到 log 文件，即输出内容不打印到屏幕上，而是输出到 log 文件中。
+    
+    - 2>&1 是将标准错误重定向到标准输出，这里的标准输出已经重定向到了 log 文件，即将标准错误也输出到 log 文件中。
+        试想 2>1 代表什么，2与>结合代表错误重定向，而 1 则代表错误重定向到一个文件 1，而不代表标准输出；换成 2>&1，&与1结合就代表标准输出了，就变成错误重定向到标准输出。
+    
+    - 最后一个`&`，是让该命令在后台执行。当使用 & 将一个进程放置到后台运行的时候，Shell 会提示这个进程的进程 ID，我们可以使用进程 ID 来终止对应的进程。
 
 - 重定向
 
@@ -779,9 +805,17 @@ java Main 2 > /dev/null
 
 ## Shell 脚本编程
 
-### `$(command)`和`$variable`的区别
+### shabang
 
-`$variable`获取变量值，`$(command)`把圆括号中的内容当做命令处理。
+```shell
+#! /usr/bin/env bash
+```
+
+
+
+### `$(<command>)`和`$variable`的区别
+
+`$variable`获取变量值，`$(<command>)`把圆括号中的内容当做命令处理。
 
 ```shell
 alias cdtmp="cd $HOME/dev-temp" # 这叫定义命令的别名，cdtmp 是一个命令。
@@ -794,48 +828,50 @@ $foo # 获取变量 foo 的值
 echo $foo # 获取变量的值并打印出来
 ```
 
-### `${variable}`变量替换
+`$(<command>)`是可以有返回值的，命令的标准输出就是返回值：
 
-比`$variable`更加高级
+```shell
+# 返回值赋值给 output
+output=$(sh -c "$lint $srcfile") # `sh -c string` 表示命令从 -c 后的字符串读取
+
+echo $? # 查看上条命令是否成功，成功返回 0
+if [ $? -ne 0 ]; then # -ne 表示 not equal
+    echo "上条命令执行失败"
+fi
+if [ $? = 0 ]; then
+    echo "上条命令执行成功"
+fi
+
+```
+
+
+
+### `${variable}`
+
+变量是字符串时，可对字符串内容替换，`$variable`则没有这个功能。
 
 ```shell
 WORDCHARS="*?_-.[]~=/&;!#$%^(){}<>"
 WORDCHARS="${WORDCHARS/_\/$/}" # 删除掉字符串中的 _ / $ 三个字符
 ```
 
-
-
-### source 命令
-
-用于在脚本内部加载外部库，使得外部库定义的函数可以再脚本中使用。比如名为 `lib1.sh` 的外部库。
+也用于 Shell 脚本中字符串中的分隔：
 
 ```shell
-#!/usr/bin/env bash
-function echo1(){
-		echo 1111
-}
+port="51837"
+echo "端口${port}设置成功" # 正常执行
+echo "端口$port设置成功"   # Shell 脚本中会出现乱码，无法分清${port}还是${port设}
 ```
 
-在脚本中以下内容会输出`1111`。
+从特定符号处截取字符串
 
 ```shell
-source lib1.sh
-
-# 输出 1111
-echo1
-```
-
-如果是在`~/.zshrc`、`~/.bash_profile`等 Shell 的配置文件(这些文件本质也是 Bash 脚本)中，通过`source`命令引入外部库，那么外部库中的函数可直接在终端当命令使用，而不必在环境变量中添加命令。
-
-
-
-### 输出的字符串带颜色
-
-```shell
-function upgrade_oh_my_zsh() {
-  echo >&2 "${fg[yellow]}Note: \`$0\` is deprecated. Use \`omz update\` instead.$reset_color"
-  omz update
-}
+srcfile="src/json/caps_tenkey_mode.xxx.yyy.json.rb"
+echo ${srcfile#*.}    # 向左删，删除第一个 . 及其左边的字符串
+echo ${srcfile##*.}   # 向左删，删除最后一个 . 及其左边的字符串
+echo ${srcfile%%.*}   # 向右删，删除第一个 . 及其右边的字符串
+echo ${srcfile%.*}    # 向右删，删除最后一个 . 及其右边的字符串
+# 记忆方法：键盘上 # 在左边， % 在右边 
 ```
 
 ### 脚本参数
@@ -855,20 +891,22 @@ PYTHONDONTWRITEBYTECODE=1 exec vpython "$base_dir/gclient.py" "$@"
 设置临时环境变量`PYTHONDONTWRITEBYTECODE`，执行(`exec`)可执行程序`vpython`(已预先加入环境变量)，传递了至少一个参数`"$base_dir/gclient.py"`，以及当前脚本接受到的参数。
 
 - **脚本内获取参数：**
-    `$1` 为执行脚本的第一个参数，`$2` 为执行脚本的第二个参数，以此类推。第10个参数用`${10}`的形式引用。
+    `$1` 为执行脚本的第一个参数，`$2` 为执行脚本的第二个参数，以此类推。第 10 个参数用`${10}`的形式引用。
 
 - **传递给函数或脚本的所有参数：**
     `$*` 和 `$@` 都表示传递给函数或脚本的所有参数。当 `$*` 和 `$@` 不被双引号`""`包围时，它们之间没有任何区别，都是将接收到的每个参数看做一份数据，彼此之间以空格来分隔。
     但是当它们被双引号`""`包含时，就会有区别了：
-    `"$*"`会<u>将所有的参数从整体上看做一份数据</u>，而不是把每个参数都看做一份数据。传了一整个字符串。
-    `"$@"`仍然将每个参数都看作一份数据，<u>每个参数彼此之间是独立的</u>。
-    比如如果传了5个参数，对于`"$*"`来说，会变成一个字符串；而对于`"$@"`来说，分别传了5个参数。
+    - `"$*"`会将所有的参数从整体上看做一份数据，而不是把每个参数都看做一份数据。传了一整个字符串。
+    - `"$@"`仍然将每个参数都看作一份数据，每个参数彼此之间是独立的。
+        比如如果传了5个参数，对于`"$*"`来说，会变成一个字符串；而对于`"$@"`来说，分别传了5个参数。
 
 ### 获取当前脚本的文件路径
 
 ```shell
 $0
 echo $0 # 输出 /Users/jeffrey/V8-research/depot_tools/gclient
+
+# 如果在命令行输入 `echo $0` 会输出 '-zsh'
 ```
 
 ### 获取当前脚本所在文件夹
@@ -879,19 +917,34 @@ $(dirname "$0")
 $(dirname $0) # 输出 /Users/jeffrey/V8-research/depot_tools
 ```
 
-### 不想执行后续脚本
+### 退出当前脚本
+
+不执行后续脚本，相当于 JS 中函数里面 `return` 的作用。
+
+Shell 脚本中的`return`要么用在函数中，要么用在「通过`source`命令调用的脚本」（ sourced script）中。
 
 ```shell
 exit
+# exit 后面需要加退出代码。
+# 不加的话默认为 0，表示命令执行成功，没有任何报错。
+# 1-255 表示命令执行失败
+# 具体 Exit Code 含义：https://tldp.org/LDP/abs/html/exitcodes.html
 ```
 
-不要用`return`，`return`只能用于函数或 sourced script。
+### for 循环之文件路径查找
 
-### if条件判断中：双中括号与单中括号的区别
+```shell
+# src/json/*.json.* 用正则表达式匹配所有目标文件
+for srcfile in src/json/*.json.*; do
+  echo $srcfile
+done
+```
 
-- 双方括号搭配`==`运算符使用。
 
-    `=`运算符应该与`[`配合使用。`==`运算符应该与`[[`配合使用，以进行模式匹配。
+
+### if条件判断：`=`与`==`的区别
+
+- Shell 脚本 if 条件语句中的相等判断，用`=`和`==`两个操作符都是可以的。
 
 ```shell
 if [ "string1" = "string1" ]; then
@@ -899,40 +952,54 @@ if [ "string1" = "string1" ]; then
 fi
 
 # 或者
-if [[ "string1" = "string1" ]]; then
+if [ "string1" == "string1" ]; then
   echo 'two string are equal'
 fi
 ```
-- 有变量时要么使用双中括号，要么使用双引号
 
-    如果变量`$1`的值为空，那么就 if 语句就变成了`if [ = 1 ]`，这不是一个合法的条件，此时加上双中括号就能避免。
-
-```shell
-if [[ $1 == 1 ]]; then
-  echo "\$1 is 1"
-  
-# 或者是使用双引号
-if [ "$1" == 1 ]; then
-  echo "\$1 is 1"
-```
-
-
-- 括号中可以定义一些正则表达式来匹配字符串
+- 当涉及到正则匹配时，只能使用`==`，并且此时必须使用双方括号。
 
 ```shell
+# 例 1
+if [[ 51837 == 5* ]]; then
+  echo 'regular expression match'
+fi
+
+# 例 2
 if [[ $USER == j* ]]; then
   echo 'hello jeffrey'
 fi
 ```
 
+### if条件判断：双中括号与单中括号的区别
 
+- 双方括号搭配`==`运算符使用，可以在条件语句中进行正则匹配。
+    单方括号搭配`=` 运算符使用，无法正则匹配。（见上条）
+- 脚本如果涉及变量的相等判断（比如获取的第 1 个参数`$1`），要么使用双中括号，要么使用双引号，单中括号就会报错。
 
-### 文件测试操作符
+- 原因：如果变量`$1`值为空字符串，那么就 if 语句就变成了`if [ = 1 ]`，这不是一个合法的语句，此时加上双中括号或双引号就能避免。
+
+```shell
+if [[ $1 == 1 ]]; then
+  echo "\$1 is 1"
+fi
+  
+# 或者是使用双引号
+if [ "$1" == 1 ]; then
+  echo "\$1 is 1"
+fi
+```
+
+### if 条件语句中的操作符
+
+官方文档：
+
+- [File test operators](https://tldp.org/LDP/abs/html/fto.html)
+- [Other Comparison Operators](https://tldp.org/LDP/abs/html/comparison-ops.html)
 
 #### -d 判断文件夹是否存在
 
   ```Shell
-#!/usr/bin/env bash
 temp="/Users/jeffrey/IdeaProjects/tmp"
 if [ ! -d "$temp" ]; then
     mkdir -p "$temp"
@@ -941,26 +1008,130 @@ fi
 
 `! -d "$temp"`表示如果文件夹不存在或是文件而不是文件夹。
 
-注意 `"temp"`和`]`之间要有空格，否则报错。
+**注意方括号内要保留一个空格（如 `"temp"`和`]`之间要有空格），否则报错。**
 
 mkdir 命令`-p`参数，如果没有父目录创建父目录。
 
 Shell 脚本文件路径不识别`~`，需用绝对路径`/Users/jeffrey/`
 
-#### -z 判断字符串是否为 null（零长度）
+#### -nt -ot 两个文件内容新旧对比
 
-一个字符串没定义是 null。linux 认为字符串如果长度为零也是 null。
+语法：
 
 ```shell
-#! /usr/bin/env bash
+<f1> -nt <f2> # file f1 is newer than f2
+<f1> -ot <f2> # file f1 is older than f2
+# f1、f2 为 filepath
+```
+
+示例：
+
+```shell
+srcfile="src/json/ysq-KE.json.js"
+dstfile="public/src/json/ysq-KE.json.js"
+if [[ "$srcfile" -nt "$dstfile" ]]; then
+    echo "文件有更新"
+fi
+```
+
+
+
+#### -z 判断字符串是否为空字符串
+
+Linux 认为字符串如果长度为零就是 null string。
+
+```shell
 String=''   # Zero-length ("null") string variable.
 
 if [ -z "$String" ]; then
   echo "\$String is null."
 else
   echo "\$String is NOT null."
-fi     # $String is null.
+fi
+
+# 取反运算符，判断字符串不是空字符串
+if [ ! -z "$String" ]; then
+  echo "\$String is NOT null."
+fi
 ```
+
+#### -ne 不等式（not equal）
+
+```shell
+if [ "$a" -ne "$b" ]; then
+    echo "两个变量不相等"
+fi
+```
+
+
+
+### 输出的字符串带颜色
+
+[stack overflow | How to change the output color of echo in Linux](https://stackoverflow.com/questions/5947742/how-to-change-the-output-color-of-echo-in-linux)
+
+```shell
+# 打出黄色文字
+YELLOW='\033[0;33m'
+NC='\033[0m' # No Color
+echo "${YELLOW}This sentence is yellow.${NC}"
+
+# 以下代码仅在命令行有效，Shell 脚本中无效
+echo "${fg[yellow]}Note: \`$0\` is deprecated. Use \`omz update\` instead."
+```
+
+### Shell 脚本的错误处理
+
+如果脚本里面有运行失败的命令（返回值为非0），Bash 默认会继续执行后面的命令。
+
+```shell
+#!/usr/bin/env bash
+foo
+echo 123
+# 上面脚本中，foo 是一个不存在的命令，执行时会报错。但是 Bash 会忽略这个错误，继续往下执行。这种行为很不利于脚本安全和除错。
+```
+
+如果开发者希望脚本只要发生错误，就终止执行：
+
+```shell
+# 写法 1
+<command> || exit 1  # 返回非 0 值
+
+# 写法2
+#!/usr/bin/env bash
+set -e # 它使得脚本只要发生错误，就终止执行。
+```
+
+如果开发者希望在命令失败的情况下，脚本继续执行下去。也就是说，即使命令执行失败，脚本也不会终止执行。
+
+```shell
+# 写法 1
+# 暂时关闭 set -e，该命令执行结束后，再重新打开 set -e。
+set +e     # 表示关闭 -e 选项
+<command1>
+<command2>
+set -e     # 表示重新打开 -e 选项
+
+# 写法 2
+<command> || true
+```
+
+### 输出多行信息到终端
+
+```shell
+if $use_partial_lint; then
+  echo
+  echo "----------------------------------------"
+  echo "WARNING:"
+  echo "The complete linting requires Karabiner-Elements 12.2.1 or later."
+  echo "Using partial lint instead."
+  echo "----------------------------------------"
+  echo
+
+  lint="$topdir/scripts/partial-lint.rb"
+fi
+```
+
+
 
 ### shell 脚本学习资料：
 

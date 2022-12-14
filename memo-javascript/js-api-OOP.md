@@ -4,7 +4,7 @@
 
 ### 1.1）原型与原型对象
 
-- 有一个对象 obj，`obj.__proto__`叫做「obj 对象的原型」，简称**「obj 的原型」**。
+- 有一个对象 obj，`obj.__proto__`叫做「obj 对象的原型」（instance's prototype），简称**「obj 的原型」**。
 
 - `obj.__proto__`所指向的对象叫做「**obj 的原型对象**」，也就是 obj 的构造函数的 prototype 属性所指向的对象。
 

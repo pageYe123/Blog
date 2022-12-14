@@ -25,6 +25,22 @@ ele.matches('li')
 ele.tagName.toLowerCase() === 'li'
 ```
 
+新声明的全局变量，防止覆盖原有的全局变量：
+
+```js
+let prop= 'log' // 测试用例
+
+let isFn = function (x) { return (x instanceof Function) }
+let raw = window[prop]
+let raw_isFn = isFn(raw)
+if (raw == null || raw_isFn) {
+    window[prop] = function (...args) {
+        raw && raw_isFn && raw()
+        console[prop](...args)
+    }
+}
+```
+
 
 
 ## CSS

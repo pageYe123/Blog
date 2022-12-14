@@ -35,15 +35,15 @@ node-dev server.js
 
 ## 三、VSCode
 
-### 设置快捷键
+### 3.1 设置快捷键
 
 操作：Code→Preferences→Keyboard Shortcuts
 
 | command / description                                        | hotkeys                          |
 | ------------------------------------------------------------ | -------------------------------- |
 | Transform to Uppercase                                       | option + cmd + u                 |
-| Go Back \| navigate                                          | option + -                       |
-| Go Forward \| navigate                                       | option + shift + -               |
+| Go Back \| navigate                                          | control + -                      |
+| Go Forward \| navigate                                       | control + shift + -              |
 | Go to File                                                   | cmd + p                          |
 | Show All Commands                                            | cmd + shift + p                  |
 | Change Language Mode                                         | control + p                      |
@@ -53,43 +53,63 @@ node-dev server.js
 | Rename Symbol 变量重命名<br />与上个命令不同，这个只改变当前作用域的变量 | F2                               |
 | View: Toggle Primary Side Bar Visibility                     | cmd + e                          |
 | File → New Window<br />File → Open rencent                   | cmd + shift + n<br />control + r |
+| View: Reopen Closed Editor                                   | cmd + shift + t                  |
 
-### 编辑器
+### 3.2 插件
 
+- 配置中文。插件搜索`Chinese`，重启编辑器，呈现中文。
+- 提供中文分词，支持中文词汇之间光标移动（word navigation）。插件搜索`CJK Word Handler`。
+- 内置插件`JavaScript Language Basics`，提供 snippets，语法高亮，括号匹配和代码折叠功能。
+    搜索`@builtin JavaScript`才能找到该插件。
+- Wrap Console Log。按快捷键，可以用`console.log()`包裹变量。
+
+### 3.3 settings 配置：
+
+- JS 内置 snippets  `console.log()` 有分号无法从源头去除怎么办？
+    ```json
+    "javascript.format.semicolons": "remove"
+    ```
+    
+    
+    
+- 取消左侧断点区域，目前不使用 debug 模式，经常误触发 breakpoint。
+  
+    ```json
+    "editor.glyphMargin": false
+    ```
+    
 - 自动换行设置
     命令：toggle word wrap。当行内容过长时，可自动换行。
 
 - 每一行外嵌套列表标签
 
-选中5行文字→命令：Emmet wrap→输入缩写包围个别行→`ul>li*`
+选中5行文字 → 命令：Emmet wrap → 输入缩写包围个别行 → `ul>li*`
 
 ```
-第一张专辑《Jay》就获得金曲奖最佳专辑，同时也入围当年最佳制作人、最佳作曲人和最佳新人奖三项大奖。同年，获得新加坡金曲奖最佳新人奖。
+第一张专辑《Jay》就获得金曲奖最佳专辑。
 第二张专辑《范特西》获得包括最佳专辑、最佳编曲等在内的五个金曲奖奖项。
-第四张专辑《叶惠美》获得最佳专辑、最佳音乐视频导演奖
+第四张专辑《叶惠美》获得最佳专辑、最佳音乐视频导演奖。
 ```
 
 - JavaScript 代码自动加分号。Settings 搜索。JavaScript › Format: Semicolons。
 
-### 插件
+- Vue、JS文件中也想使用 Emmet。在`settings.json`中加入如下配置
 
-- 配置中文。插件搜索`Chinese`，重启编辑器，呈现中文
-- 提供中文分词，支持中文词汇之间光标移动（word navigation）。插件搜索`CJK Word Handler`。
+    ```json
+    "emmet.includeLanguages": {
+        "vue-html": "html",
+        "vue": "html",
+        "javascript":"html"
+    }
+    ```
 
-### settings 配置：
+- HTML`<pre>`标签中的内容不进行格式化。
+    搜索：Unformatted，进行设置。在`settings.json`中加入下面配置：
 
-位置：左上角 Code→Preference→Settings
-
-- 代码格式化
-
-    - HTML`<pre>`标签中的内容不进行格式化。
-        搜索：Unformatted，进行设置。
-
-        ```json
-        "comment":"settings.json",
-        "html.format.contentUnformatted": "pre,code,textarea",
-        "html.format.unformatted": "wbr",
-        ```
+    ```json
+    "html.format.contentUnformatted": "pre,code,textarea",
+    "html.format.unformatted": "wbr",
+    ```
 
 - 单词拼写检查：
     `C Spell: Enabled`
@@ -118,7 +138,7 @@ node-dev server.js
 
 - 自定义单词分隔符：搜索 wordseparator。
 
-### snippets
+### 3.4 snippets
 
 存放路径：`~/Library/Application\ Support/Code/User/snippets`
 
@@ -155,11 +175,13 @@ node-dev server.js
 
 但是如果这样做，就没有任何代码补全提示。
 
-**内置的 JavaScript snippet**
+**内置的 JavaScript snippets**
 
-现在可以禁用 VSCode 中的内置扩展。Extensions选项卡，搜索`@builtin JavaScript`，找到 JavaScript Language Basics 插件。这个插件中已经内置了很多 snippets，如`foreach`、`fori`、`forin`等等。这些内置的片段无法修改。
+ `JavaScript Language Basics` 插件提供内置的 JavaScript snippets。在 Extensions 选项卡，搜索`@builtin JavaScript`才能找到该插件。这个插件中已经内置了很多 snippets，如`foreach`、`fori`、`forin`等等，这些内置的片段无法修改。
 
-如果内置片段与用户定义片段，前缀冲突怎么办？看`"editor.tabCompletion"`的值，
+不能禁用该插件，否则 JS 语法高亮等功能完全失效，所以内置 snippets 只能保留。
+
+如果内置片段与用户定义片段，前缀冲突怎么办？看`"editor.tabCompletion"`的值：
 
 ```json
 "editor.tabCompletion":"on" // 以 user snippets 为最佳匹配填入。
@@ -167,7 +189,7 @@ node-dev server.js
 "editor.tabCompletion":"onlySnippets" // 将两个冲突代码显示，让用户来选。
 ```
 
-### Emmet
+### 3.5 Emmet
 
 官方文档：
 
@@ -223,11 +245,9 @@ node-dev server.js
 
 
 
-### 底部状态栏
+### 3.6 其他
 
-鼠标右键可以配置在状态栏中显示的插件。我把 Code Spell Checker 关了。
-
-### 其他
+- 底部状态栏。鼠标右键可以配置在状态栏中显示的插件。我把 Code Spell Checker 关了。
 
 - 更新失败 Could not create temporary directory: Permission denied。参考：[mac vscode 更新失败 解决办法](https://segmentfault.com/a/1190000012881106)
 

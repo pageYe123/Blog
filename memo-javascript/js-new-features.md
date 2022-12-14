@@ -1,4 +1,38 @@
-# JS 新语法
+# JS 新语法&新概念
+
+## `[@@match]`、`[@@iterator]`...
+
+`@@` 并不是 JS 中真实的语法，它描述的是一个 symbol 方法名。这些标记实际对应的方法名如下：
+
+| `[@@<methodName>]` | 实际对应的方法名                 |
+| ------------------ | -------------------------------- |
+| `[@@match]`        | `RegExp.prototype[Symbol.match]` |
+| `[@@iterator]`     | `Array.prototype[@@iterator]`    |
+| `[@@toPrimitive]`  | `Date.prototype[@@toPrimitive]`  |
+
+以 `RegExp.prototype[Symbol.match]` 为例。只要一个对象实现了 `Symbol.match` 方法，它就可以作为 `String.prototype.match()`的参数。比如：
+
+```js
+let str = "Hmm, this is interesting.";
+let obj = {
+  [Symbol.match](str) {
+    return ["interesting."];
+  }
+}
+
+console.log(str.match(obj)); // ["interesting."]
+```
+
+同样地，在正则表达式的内部存在`Symbol.match`方法，接受 str 作为参数。
+
+```js
+const re = /[0-9]+/g
+const str = "2016-01-02"
+const result = re[Symbol.match](str) // 等价于 str.match(re)
+console.log(result) // ["2016", "01", "02"]
+```
+
+
 
 ## JS 模块
 
@@ -22,7 +56,113 @@ import { c as x } from './xxx.js'
 
 注意`import`语法中，相对路径必须有`./`，否则报错。
 
-## new Map()
+## 运算符
+
+###  `x ?? y`
+
+空值合并运算符（Nullish coalescing operator）。
+
+当 x 为 `null` 或者 `undefined` 时，返回 y；否则返回 x。
+
+```js
+const nullValue = null;
+const emptyText = ""; // 空字符串，虽然是 falsy 值，但是不是 null 或 undefined
+
+const valA = nullValue ?? "valA 的默认值"; // "valA 的默认值"
+const valB = emptyText ?? "valB 的默认值"; // ""
+```
+
+### `x ??= y`
+
+空值合并赋值运算符（Nullish coalescing assignment）
+
+当 x 为 `null` 或者 `undefined` 时，给 x 赋值，否则不赋值。
+
+```js
+// 等价于 x ?? (x = y)
+// 不等价于 x = (x ?? y)
+const a = { duration: 50 };
+
+a.duration ??= 10; console.log(a.duration); // 50
+a.speed ??= 25; console.log(a.speed);       // 25
+```
+
+### `x ||= y` 
+
+逻辑或赋值运算符 Logical OR assignment。
+
+当 x 为 falsy 值时，对 x 赋值。
+
+```js
+const x = 1 // x 不可重新赋值
+x ||= 2
+// 等价于 x || (x = 2)
+// 不等价于 x = x || 2，给 x 重新赋值了，会报错。
+```
+
+注意：ES 2021（第12版）才引进，低版本的node.js不支持该语法。
+
+## 可迭代对象（iterable object）
+
+包括如下构造函数的实例：Array，String，TypedArray，Map，Set，NodeList，DOMcollections，以及 arguments，generator functions 产生的Generator Object， 还有 user-defined iterables。
+
+**将类数组对象变为可迭代对象：**
+对于 Object 来说，是没有部署 Iterator 接口的。类数组对象是一个对象，所以不能像数组一样通过迭代器遍历。
+
+```js
+let arrLike = { 0: "z", 1: "x", 2: "y", length: 3 }
+
+// 方法一：借用别人的迭代器
+arrLike[Symbol.iterator] = [][Symbol.iterator]
+// [][Symbol.iterator] === Array.prototype[Symbol.iterator] // true
+
+// 方法二：创建一个新的迭代器
+arrLike[Symbol.iterator] = function* () {
+    for (let key in this) {
+        if (/^\d+$/.test(key)) { // filter out `length` property
+            yield this[key]
+        }
+    }
+}
+
+for (let a of arrLike) {
+    console.log(a);
+}
+```
+
+
+
+## for...of
+
+在 ES6 中引入了 `for...of` 循环，遍历[可迭代对象](#可迭代对象（iterable object）)（*iterable object*）。可以作为遍历所有数据结构的统一的方法。
+
+`for...in` VS. `for...of`：
+
+- `for...in` 遍历对象的可枚举属性，包含自身的和原型链上的属性
+- `for...of` 遍历「可迭代对象」预先定义好的可迭代的值
+
+```js
+Object.prototype.objCustom = function () {};
+Array.prototype.arrCustom = function () {};
+
+const iterable = [3, 5, 7];
+iterable.foo = "hello";
+
+for (const i in iterable) {
+  console.log(i);
+}
+// "0", "1", "2", "foo", "arrCustom", "objCustom"
+// "0" "1" "2" "foo" 为自身属性，后两者为原型链上的属性
+
+for (const i of iterable) {
+  console.log(i);
+}
+// 3 5 7
+```
+
+
+
+## Map 数据结构
 
 ```js
 // 语法
@@ -44,7 +184,9 @@ JS 内建的可迭代对象：
     - DOM 中的 NodeList 对象、HTMLCollection 对象
     - 函数的 arguments 属性，以及函数内部 arguments 局部变量。
 
-## Map 和 WeakMap 的区别
+## WeakMap 数据结构
+
+WeakMap 和 Map 的区别：
 
 1. Map 对象的键可以是任何类型，但 WeakMap 对象中的键只能是对象引用。
 2. WeakMap 不能包含无引用的对象，否则会被自动清除出集合（垃圾回收机制）。 
@@ -143,18 +285,49 @@ console.log(foo) // "aaa"
 let foo = obj.foo
 ```
 
-对象的解构赋值，可以很方便地将现有对象的方法，赋值到某个变量。
+**应用场景：**
 
-```javascript
-// 例一
-let { log, sin, cos } = Math;
+```js
+// 1. 函数的参数是个对象，从函数参数中获取属性值
+let obj = { data: { n: 0 } }
+function foo({ data }) { // 获取参数中属性 data 的值
+    console.log(data) // { n: 0 }
+}
+foo(obj)
 
-// 例二
+// 2. 对象的解构赋值，可以很方便地将现有对象的方法，赋值到某个变量。
+// 将 Math 对象的对数、正弦、余弦三个方法，赋值到对应的变量上，使用起来就会方便很多。
+let { log, sin, cos } = Math; // 注意 log 存在命名冲突
 let { log } = console;
 log('hello') // hello 
 ```
 
-上面代码的例一将 `Math` 对象的对数、正弦、余弦三个方法，赋值到对应的变量上，使用起来就会方便很多。
+
+
+## 展开语法
+
+**应用场景：**
+
+```js
+// 1. 函数的参数数量不确定时，用展开运算符
+function foo(...args){ // 此时 args 是真正的数组，而非 arguments
+	console.log(args) // [1,2,3,4,5,6]
+}
+foo(1,2,3,4,5,6)
+
+// 2. 展开运算符复制数组
+let result1 = [1, 2, 3, 4]
+let result2 = [...result1]
+
+// 3. 展开运算符拼接数组，不改变原数组
+let result1 = [1, 2, 3, 4],
+    result2 = [5, 6, 7, 8]
+let result3 = [
+    ...result2,
+    ...result3
+]
+// 等价于 let result3 = result1.concat(result2) // 同样不改变原数组
+```
 
 
 
