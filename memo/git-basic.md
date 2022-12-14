@@ -60,19 +60,17 @@ git init
 ```shell
 git add .
 git commit -m "提交信息"
-```
-
-等价于
-
-```shell
-# 只针对 tracked 文件
+# 若是 tracked 文件，则等价于
 git commit -am "提交信息"
 ```
 
-- 排除众多文件的某些文件加入暂存区
+- 多个文件加入暂存区，排除某些文件
 
 ```shell
+# ':!<filepath>' 表示排除，必须带引号
+# 等价于 :^<filepath> ，不带引号
 git add memo-javascript/* ':!memo-javascript/js-api-basic.md'
+git add memo-javascript/* :^memo-javascript/js-api-basic.md
 ```
 
 - 针对单个文件进行提交
