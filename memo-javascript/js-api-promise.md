@@ -1,3 +1,10 @@
+【待梳理成API】......
+如果讲解过多就单独成立 blog
+
+
+
+
+
 Promise 是目前前端解决异步问题的统一方案。使用 Promise 对象之后可以使用一种链式调用的方式来组织代码，让代码更加的直观。也就是说，有了 Promise 对象，就可以将异步操作以同步的操作的流程表达出来，避免「回调地狱」。
 
 ## 如何创建一个 new Promise
@@ -11,7 +18,7 @@ function fn(){
 }
 ```
 
-## 如何使用 Promise.prototype.then
+## Promise.prototype.then
 它的作用是为 Promise 实例添加状态改变时的回调函数，一旦状态改变，就执行相应的回调。`.then`方法的第一个参数是 resolved 状态的回调函数，第二个参数是 rejected 状态的回调函数，它们都是可选的。
 
 ```js
@@ -19,7 +26,7 @@ let promise = fn() // 得到 promise 对象
 promise.then(success1, fail1).then(success2, fail2).catch(fail3)
 ```
 
-## 如何使用 Promise.all
+## Promise.all
 
 `.all`方法可以接受一个「元素为 Promise 对象的 iterable 类型」（ES6 中 Array，Map，Set 都属于其中），并只返回一个`Promise`实例。
 
@@ -45,7 +52,7 @@ Promise.all([p1, p2]).then(function (result) {
 });
 ```
 
-## 如何使用 Promise.race
+## Promise.race
 
 race 的意思为赛跑。promise.race 接收一个数组作为参数，但是与 promise.all 不同的是，race 只返回跑的快的值，也就是执行比较快的那个。一旦数组中的某个 promise 解决或拒绝，返回的 promise 就会解决或拒绝。
 
