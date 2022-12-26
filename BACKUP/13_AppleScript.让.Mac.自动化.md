@@ -172,6 +172,24 @@ end tell
 - [find a tab by its name in Google Chrome](https://apple.stackexchange.com/questions/273970/applescript-to-find-a-tab-by-its-name-in-google-chrome)
 
 ##  四、AppleScript 脚本
+1) 在 Shell 中使用 AppleScript
+```Shell
+osascript -e 'tell application "Google Chrome" to activate'
+```
+
+2) 在 AppleScript 中使用 Shell 
+```AppleScript
+set info to do shell script "echo 1"
+# info 是 shell 脚本的输出值
+display dialog info
+```
+注意：AppleScript 中 Shell 脚本的 `$PATH` 仅限`/usr/bin:/bin:/usr/sbin:/sbin`，如果需要加入环境变量，在每个命令前面手动加。
+```AppleScript
+do shell script "PATH=\"/usr/local/bin/:$PATH\" /usr/local/bin/webstorm "
+# webstorm 命令需要 /usr/local/bin/python
+```
+### 应用场景
+
 应用场景 1：英文输入法状态按快捷键输入中文顿号。
 ```AppleScript
 #! /usr/bin/env osascript
