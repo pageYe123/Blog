@@ -188,6 +188,16 @@ display dialog info
 do shell script "PATH=\"/usr/local/bin/:$PATH\" /usr/local/bin/webstorm "
 # webstorm 命令需要 /usr/local/bin/python
 ```
+```AppleScript
+# put it into Automator.app
+on run {input, parameters}
+	set parentPath to POSIX path of first item of input
+	
+	do shell script "PATH=\"/usr/local/bin/:$PATH\" open -na \"WebStorm.app\" --args " & parentPath
+	
+	return input
+end run
+```
 ### 应用场景
 
 应用场景 1：英文输入法状态按快捷键输入中文顿号。
