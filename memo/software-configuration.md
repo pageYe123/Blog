@@ -11,19 +11,17 @@
 - 隐藏菜单栏的 icon
     Alfred Preferences → Appearance → Options（左下角） → Hide menu bar icon
 
-## Mac Karabiner-Elements
 
-见语雀文章：《[Karabiner-Elements 改键配置](https://www.yuque.com/jeffrey-ysq/popkql/lu8f1zfal7df9a4p/edit)》
 
 ## Github 官网
 
 - 开源项目的 contributors
-    
+  
     > The contributors graph sums weekly commit numbers onto each Sunday, so your time period must include a Sunday.
     > 贡献者图表每周日汇总本周的提交数量，所以你的时间段必须包括一个星期天。
     
 - 搜索功能，有限制。
-    
+  
     - 只有小于 384 KB 的文件可搜索。
     - 只有文件少于 500,000 个的存储库可搜索。
     - Only repositories that have had activity or have been returned in search results in the last year are searchable.
@@ -33,25 +31,76 @@
 - 查看 Github 某个仓库大小。
     登录 Github 网页首页，点击右上角自己的头像，下拉菜单中选中`settings`。左侧点击`repositories`，这里就有每个repository对应的存储空间大小。
 
-## Mac
-
+## macOS
+- macOS `/Applications/<应用>/Contents/info.plist` 文件中，[`CFBundleIdentifier`](https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleidentifier?language=objc) 字段，就是对应 Karabiner 的 `bundle_identifiers`。
+```xml
+<!-- 对应 Karabiner-EventViewer 的 Bundle identifier -->
+<key>CFBundleIdentifier</key>  
+<string>com.clipy-app.Clipy</string>
+```
+- 从用户可感知的运行方式分类，macOS 的应用程序分为「窗口应用」和「菜单栏应用」。「菜单栏应用」是得益于 macOS 上菜单栏的构思，产生了一类独特的应用，它们没有单独的窗口，所有的交互都在单击菜单栏图标后展开的弹窗中完成。
+  macOS系统的软件开发中有这样的一个布尔值：`LSUIElement`（Launch Service）. 它来决定这个应用是否是代理应用（agent app 仅在后台运行，不会出现在 Dock 中）。
+  
 - 想只专注当前工作，比如我就想写博客，请按`option+command+h`，隐藏其他所有。
+
 - 如何把 Downloads 文件夹变成中文“下载”。
     `touch ~/Downloads/.localized`
+    
 - 配置应用中的右键菜单。
     可以通过“键盘→快捷键→服务”进行配置。比如取消勾选“添加到印象笔记”，右键菜单中就没有这个选项了。
+    
 - 可以自定义 App 快捷键
     设置 → 键盘 → 快捷键 → ＋ → 「菜单标题」要填写菜单命令的准确名称。
+    
 - 终端中使用代理。系统偏好设置中的代理设置在 shell session 中是不会生效的，在终端中使用代理、需要手动提供 `http_proxy`、`https_proxy` (或 `all_proxy`) 环境变量，Shell 中很多可执行程序会自动识别这三个环境变量，然后决定是否走代理。注意大小写问题，比如`curl` 不识别大写的`HTTP_PROXY`，只能用小写的`http_proxy`；但是`HTTPS_PROXY`支持小写(参见`man curl`)。
+
 - Finder 中显示隐藏文件及文件夹，按快捷键`⌘+⇧+.`
 
-## Mac Automator
+- macOS 按键符号
+
+ |                                                                                    按键符号                                                                                     |                     按键名                     |                       说明                       |
+ |:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:----------------------------------------------:|:------------------------------------------------:|
+ |    <img src="https://help.apple.com/assets/61E8950FFC2FB340377F9335/61E89511FC2FB340377F933E/zh_CN/aadb53ae1fdbce0eaf46b6954280199a.png" alt="Top 符号" style="zoom:33%;" />    |                    Home ↖︎                     |              对应 `fn + left_arrow`              |
+ |    <img src="https://help.apple.com/assets/61E8950FFC2FB340377F9335/61E89511FC2FB340377F933E/zh_CN/3a3ff6163a8e9957380b2775de10ed5f.png" alt="End 符号" style="zoom:33%;" />    |                     End ↘︎                     |             对应 `fn + right_arrow`              |
+ |  <img src="https://help.apple.com/assets/61E8950FFC2FB340377F9335/61E89511FC2FB340377F933E/zh_CN/e22d54eccd7055d5a249d5c434238338.png" alt="Page Up 符号" style="zoom:33%;" />  |                   Page Up ⇞                    |               对应 `fn + up_arrow`               |
+ | <img src="https://help.apple.com/assets/61E8950FFC2FB340377F9335/61E89511FC2FB340377F933E/zh_CN/5d5898f17582711e444b666ab9f14086.png" alt="Page Down 符号" style="zoom:33%;" /> |                  Page Down ⇟                   |              对应 `fn + down_arrow`              |
+ |  <img src="https://help.apple.com/assets/61E8950FFC2FB340377F9335/61E89511FC2FB340377F933E/zh_CN/e9bcb32d2329460fa9262bb80287aeb4.png" alt="Option 符号" style="zoom:33%;" />   |                    Option ⌥                    |                        -                         |
+ |  <img src="https://help.apple.com/assets/61E8950FFC2FB340377F9335/61E89511FC2FB340377F933E/zh_CN/da323a6c28ae08e4e11659963d334729.png" alt="Command 符号" style="zoom:33%;" />  |                   Command ⌘                    |                        -                         |
+ |  <img src="https://help.apple.com/assets/61E8950FFC2FB340377F9335/61E89511FC2FB340377F933E/zh_CN/7b00c26c8add24c1d9728d21fbf8869a.png" alt="Control 符号" style="zoom:33%;" />  |                   Control ⌃                    |                        -                         |
+ |   <img src="https://help.apple.com/assets/61E8950FFC2FB340377F9335/61E89511FC2FB340377F933E/zh_CN/0f795759124f9320650e97ddd0ff4a84.png" alt="Shift 符号" style="zoom:33%;" />   |                    Shift ⇧                     |                        -                         |
+ |                          <img src="https://upload-images.jianshu.io/upload_images/1231311-254366a2778edc44.png" alt="caps_lock" style="zoom: 12%;" />                           |                  Caps Lock ⇪                   |                        -                         |
+ |  <img src="https://help.apple.com/assets/61E8950FFC2FB340377F9335/61E89511FC2FB340377F933E/zh_CN/5218dc0ac3937a55c4c67ed1317fd499.png" alt="Escape 符号" style="zoom:33%;" />   |                     Esc ⎋                      |                        -                         |
+ | <img src="https://help.apple.com/assets/61E8950FFC2FB340377F9335/61E89511FC2FB340377F933E/zh_CN/f04a43807d23b13bd4a5a2eeeaa20a7e.png" alt="右制表符符号" style="zoom: 33%;" />  |                     Tab ⇥                      |        右制表符。左制表符为 `Shift +Tab`         |
+ |  <img src="https://help.apple.com/assets/61E8950FFC2FB340377F9335/61E89511FC2FB340377F933E/zh_CN/5886bf5fc6b62c1825cb5336b78a8cca.png" alt="Delete 符号" style="zoom:33%;" />   | Delete ⌫<br /> （等同于 Windows 的 Backspace） | 向左删除键（回退键）。向右删除键为 `fn + delete` |
+ |                <img src="https://support.apple.com/library/content/dam/edam/applecare/images/en_US/mac/mac-fn-key-globe-icon.png" alt="img" style="zoom:33%;" />                |                     Fn 🌐                      |              Fn key 也叫 Globe key               |
+
+## macOS 预置文件夹
+
+- `~/Library/Application Support` 包含了应用相关的数据以及支持文件，比如第三方的插件，帮助应用，模板以及应用使用到但是并不需要用来支持运行的额外资源文件。
+- `~/Library/Preferences/*.plist` 属性列表文件（property list files）通常用于存储用户的设置。只能用 Xcode 打开，VSCode 打开乱码。
+  macOS 独有的 `defaults` 命令可以修改这些文件中的属性值。
+```shell
+# 1. 读取整数值
+defaults read com.clipy-app.Clipy "kCPYPrefShowStatusItemKey"
+# 2. 覆盖属性值，默认是字符串类型
+defaults write com.clipy-app.Clipy "kCPYPrefShowStatusItemKey" 2
+# 2.1. 设置为整数类型
+defaults write com.clipy-app.Clipy "kCPYPrefShowStatusItemKey" -int "2"
+# 3. 删除属性值
+defaults delete com.clipy-app.Clipy "kCPYPrefShowStatusItemKey"
+# 4. 查看系统重所有 domain（对应 Karabiner 中的 "bundle_identifiers"）
+defaults domain
+```
+
+- `~/Library/Containers` 主要是 macOS 的原生应用在里面生成用户本地存储，用于用户配置、数据保存等。
+
+## macOS Automator
 
 自定义的 AppleScript 脚本存储在：`~/Library/Services`
 
 Applescript 文件后缀名为`scpt`，可搭配「脚本编辑器」或 Automator 实现自动化。
 
-## Mac iTerm2
+## macOS iTerm2
 
 - 显示之前的命令历史：`command+shift+h`
 
@@ -70,13 +119,26 @@ Applescript 文件后缀名为`scpt`，可搭配「脚本编辑器」或 Automat
 
     
 
-## Mac Zsh
+## macOS Zsh
 
 安装目录：`/Users/jeffrey/.oh-my-zsh`
 
-## Mac Homebrew
+## macOS Homebrew
 
 Homebrew brew update 长时间没反应：https://juejin.cn/post/6931190862295203848
+
+## macOS Karabiner-Elements
+
+见语雀文章：《[Karabiner-Elements 改键配置](https://www.yuque.com/jeffrey-ysq/popkql/lu8f1zfal7df9a4p/edit)》
+
+## macOS Clipy
+ [Clipy](https://github.com/Clipy/Clipy/blob/40445fd4f453edf5dd39cf18b9e4b5ffbf48deaa/Clipy/Sources/Preferences/Panels/Base.lproj/CPYGeneralPreferenceViewController.xib#L168) 剪贴板增强工具，菜单栏图标消失。
+```shell
+defaults delete com.clipy-app.Clipy kCPYPrefShowStatusItemKey
+# kCPYPrefShowStatusItemKey 是 Clipy 源代码中定义的属性名
+# 修改了 ~/Library/Preferences/com.clipy-app.Clipy.plist
+```
+`hyper_capslock + F12` 唤醒主菜单。目前菜单栏图标处于隐藏状态。
 
 ## Chrome 浏览器
 
@@ -101,12 +163,17 @@ Homebrew brew update 长时间没反应：https://juejin.cn/post/693119086229520
 
 需求来源：写博客的时候能区分出中文的左右双引号“”`“”`
 
-最终选择 Monaco 作为 Mac 下 Typora 的字体。能区分 0 和 o。
+最终选择 Monaco 作为 macOS 下 Typora 的字体。能区分 0 和 o。
 
 参考：[程序员选择字体的标准是?](https://segmentfault.com/q/1010000000193702#a-1020000000193822)
 
 ## 翻墙软件
 
+- 在 ClashX 代理规则列表中新增 domain 规则：
+```yaml
+- DOMAIN-SUFFIX,google.cn,Proxy
+```
+解决 sm.ms [文件](https://recaptcha.google.cn/recaptcha/api.js?render=6LdArYchAAAAADs9BJEP0Ud-MpC54mNN90Bp0BvK)加载不出来的问题
 - ClashX 修改代理端口。
 
 ClashX > 配置 > 打开本地配置文件夹，找到“config.yaml”打开编辑（只有这份文件的端口设置会随ClashX启动生效，自定义的配置文件中的端口是无效的）。
@@ -126,7 +193,11 @@ ClashX > 配置 > 打开本地配置文件夹，找到“config.yaml”打开编
     # http 127.0.0.1 58591
     ```
 
-    
+
+## 语雀
+
+- 查看「本月新建文稿数」、「本月上传流量使用情况」
+    点击头像 → 账户设置 → 语雀会员
 
 ## Stack Overflow
 
@@ -135,7 +206,7 @@ ClashX > 配置 > 打开本地配置文件夹，找到“config.yaml”打开编
 - 
 
 
-## 在线 jsbin
+## JS Bin —— 在线 IDE
 
 `cmd + shift + l` 格式化代码快捷键
 

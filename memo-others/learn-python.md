@@ -1,3 +1,13 @@
+## shebang
+注意 shebang 不会找 `~/.zshrc` 中的 alias
+```python
+#!/usr/bin/env python
+```
+没有 python 时执行命令：
+```shell
+sudo ln -s /usr/local/bin/python3 /usr/local/bin/python
+```
+
 ## 标准错误输出
 
 优先打印到终端

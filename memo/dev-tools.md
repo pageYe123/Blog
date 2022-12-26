@@ -19,10 +19,13 @@ node-dev server.js
     Preferences → Emmet → CSS → Enable fuzzy search among CSS abbreviations
 - 修改 tab 缩写模版
     Preferences → Live templates
+- 配置 Node.js 解释器
+    Language & Frameworks → Node.js
+  ``
 
 ### 2.1 快捷键
 
-| command / description                                        | opration                                   |
+| command / description                                        | operation                                  |
 | ------------------------------------------------------------ | ------------------------------------------ |
 | surround with...<br />将代码用...包裹，在 HTML 中经常用      | 选中代码 → `cmd + option + t` → 选择 Emmet |
 | Go to File                                                   | cmd + p                                    |
@@ -30,8 +33,10 @@ node-dev server.js
 | Join Lines 合并行                                            | cmd + j                                    |
 | Move Statement up/down<br />对 HTML 标签而言，成对的`<div>`、`</div>`即使不在同一行，也会同时一起移动。 | cmd + shift + up/down                      |
 | Move Line up/down                                            | option + up/down                           |
-| Refactor → Rename                                            | F2                                         |
+| Refactor → Rename                                            | shift + F6                                 |
+| Select All Occurrences                                       | control + cmd + g                          |
 | Refomat Code                                                 | cmd + l                                    |
+| Extend Selection                                             | hyper + s                                  |
 
 ## 三、VSCode
 
@@ -40,7 +45,7 @@ node-dev server.js
 操作：Code→Preferences→Keyboard Shortcuts
 
 | command / description                                        | hotkeys                          |
-| ------------------------------------------------------------ | -------------------------------- |
+| ---- | --- |
 | Transform to Uppercase                                       | option + cmd + u                 |
 | Go Back \| navigate                                          | control + -                      |
 | Go Forward \| navigate                                       | control + shift + -              |
@@ -49,11 +54,12 @@ node-dev server.js
 | Change Language Mode                                         | control + p                      |
 | Expand Selector 选中光标所在单词                             | Hyper + s                        |
 | 给单词加单（双）引号                                         | 选中单词后按 ' 或 shift + '      |
-| Change All Occurrences<br />选中单词，在所有相同单词后增加光标 | cmd + F2                         |
-| Rename Symbol 变量重命名<br />与上个命令不同，这个只改变当前作用域的变量 | F2                               |
+| Change All Occurrences<br />选中单词，在所有相同单词后增加光标 | cmd + F2 / <br />control + cmd + g |
+| Rename Symbol 变量重命名<br />与上个命令不同，这个只改变当前作用域的变量 | F2 / shift + F6            |
 | View: Toggle Primary Side Bar Visibility                     | cmd + e                          |
 | File → New Window<br />File → Open rencent                   | cmd + shift + n<br />control + r |
 | View: Reopen Closed Editor                                   | cmd + shift + t                  |
+| Bookmarks List （Bookmarks 插件）                            | cmd + option + b                 |
 
 ### 3.2 插件
 
@@ -62,6 +68,10 @@ node-dev server.js
 - 内置插件`JavaScript Language Basics`，提供 snippets，语法高亮，括号匹配和代码折叠功能。
     搜索`@builtin JavaScript`才能找到该插件。
 - Wrap Console Log。按快捷键，可以用`console.log()`包裹变量。
+- Live Server 取消自动刷新。
+```json
+"liveServer.settings.ignoreFiles": []
+```
 
 ### 3.3 settings 配置：
 

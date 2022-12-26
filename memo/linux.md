@@ -274,6 +274,18 @@ ls -al
     通常用作检验上个命令是否成功执行。返回值是0，代表成功；如果是非零，代表失败。
     有时候一个命令（如`mkdir foo`）执行完，终端控制台没有任何输出。到底执行成功了没有？此时可以用`echo $?`检验。
 
+#### printf 命令
+
+格式化并输出结果。
+
+```shell
+# %-5s 格式为左对齐且宽度为5的字符串代替（'-'表示左对齐），不使用则默认右对齐。
+# %-4.2f 格式为左对齐宽度为4，保留两位小数。
+
+printf "%-5s %-10s %-4s\n" NO Name Mark
+printf "%-5s %-10s %-4.2f\n" 01 Tom 90.3456
+```
+
 #### 查看系统可用 shell
 
 `cat /etc/shells`查看系统可使用的 shell。
@@ -586,6 +598,15 @@ sed -i -E 's/51837/51833/' ~/.gitconfig
 ```shell
 sed 's/51837/51833/' ~/.gitconfig >> ~/.gitconfig
 ```
+
+- 应用场景：`sed` 搭配 `grep` ，对大量文本进行搜索
+
+```shell
+a=$(defaults domains | sed 's/,/\\n/g'); # 将逗号为分隔，将文本转变为多行文本
+echo "$a" | grep "Clipy" # 找到含有 Clipy 的一项
+```
+
+
 
 
 

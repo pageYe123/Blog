@@ -7,15 +7,44 @@
 
 Promise 是目前前端解决异步问题的统一方案。使用 Promise 对象之后可以使用一种链式调用的方式来组织代码，让代码更加的直观。也就是说，有了 Promise 对象，就可以将异步操作以同步的操作的流程表达出来，避免「回调地狱」。
 
+Promise 有三种状态：
+- pending
+- fulfilled
+- rejected
+
 ## 如何创建一个 new Promise
 
 ```js
-function fn(){
-    return new Promise((resolve, reject)=>{
-        /*成功时调用*/ resolve(data)
-        /*失败时调用*/ reject(reason)
+let promise = new Promise((resolve, reject)=>{
+    /* 将 promise 对象的状态变为 fulfilled，并执行 then(success) */
+    resolve(data) // data 可以是任何类型
+    /* 将 promise 对象的状态变为 rejected，并执行 then(fail) */
+    reject(reason) // reason 可以是任何类型
+})
+```
+实际代码：
+```js
+let promiseFactory = (arg) => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => { // 模拟异步操作
+            const res = Math.random()
+            if (res >= 0.5) {
+                resolve(`参数 ${arg} 成功`)
+            } else {
+                reject(`参数 ${arg} 失败`)
+            }
+        }, 1000)
     })
 }
+
+// 使用示例
+let success = (response) => {
+    console.log(response)
+}
+let fail = (response) => {
+    console.log(response)
+}
+promiseFactory('foo').then(success, fail)
 ```
 
 ## Promise.prototype.then
