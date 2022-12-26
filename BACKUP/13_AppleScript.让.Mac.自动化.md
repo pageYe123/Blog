@@ -16,7 +16,7 @@
 log 123
 ```
 
-### 1.3 对话框
+### 1.3 对话框与警告
 ```AppleScript
 display dialog "<调试的内容>" -- 注意对象无法转换成字符串，布尔值、数字可以
 
@@ -25,6 +25,13 @@ display dialog "<弹出框显示的内容>" buttons {"OK"} default button 1
 
 -- 获取用户输入内容。包含 placeholder，default，title，Cancel and Ok buttons
 set searchString to text returned of (display dialog "Enter a string to search for:" default answer "" with title "Find Google Chrome Tab")
+```
+警告框
+```AppleScript
+set theAlertText to "An error has occurred."
+set theAlertMessage to "Please select a single folder!"
+
+display alert theAlertText message theAlertMessage as critical buttons {"Don't Continue", "Continue"} default button "Continue" cancel button "Don't Continue"
 ```
 
 ### 1.4 字符串只支持双引号，不支持单引号
@@ -53,6 +60,13 @@ end tell
 参考资料：
 [AppleScript 入门：探索 macOS 自动化](https://sspai.com/post/46912)
 
+### 1.6 函数
+```AppleScript
+on fn()
+  -- fn source code write here...
+end fn
+```
+函数定义中不能再次定义函数，比如`on run {argv, parameters} end run` 中不能再次定义函数，需要写在外面来。
 
 ## 二、查询应用提供的 API
 打开「脚本编辑器」→ Window → Library → 添加应用
@@ -99,6 +113,8 @@ open "/Applications/Google Chrome.app"
 以上两句代码均是 Shell 命令。
 
 ### 3.3 选中指定 title 的 Chrome tab
+<details><summary>源代码（较长）</summary>
+
 ```AppleScript
 set tabTitle to "jirengu video hotkeys"
 
@@ -150,6 +166,8 @@ on setActiveTabIndex(t, tabTitle)
 	end tell
 end setActiveTabIndex
 ```
+</details>
+
 
 ### 3.4 Chrome 当前 tab 执行 JS
 ```AppleScript
@@ -172,6 +190,8 @@ end tell
 - [find a tab by its name in Google Chrome](https://apple.stackexchange.com/questions/273970/applescript-to-find-a-tab-by-its-name-in-google-chrome)
 
 ##  四、AppleScript 脚本
+脚本后缀为`.scpt`
+
 1) 在 Shell 中使用 AppleScript
 ```Shell
 osascript -e 'tell application "Google Chrome" to activate'
@@ -210,3 +230,6 @@ tell application "System Events" to keystroke "v" using command down
 delay 0.02
 set the clipboard to _clipboard
 ```
+
+应用场景2：在 Finder 的选中的文件夹中新建文件夹
+源代码见：[GitHub Gist](https://gist.github.com/yeshiqing/f1709d3309722ff4e3f1feba6eeed669)
