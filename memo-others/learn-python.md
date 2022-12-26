@@ -27,4 +27,4 @@ print("\033[31m"+type_name+"\033[0m")
 
 参考资料：
 
-[Python基础之控制台输出颜色](https://blog.csdn.net/qq_33567641/article/details/82769523)
+[Python 基础之控制台输出颜色](https://blog.csdn.net/qq_33567641/article/details/82769523)

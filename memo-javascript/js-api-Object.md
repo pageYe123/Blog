@@ -142,7 +142,7 @@ console.log(obj);
 
 语法：
 
-```
+```plain
 Object.hasOwn(obj, propName)
 ```
 

@@ -73,7 +73,7 @@ node-dev server.js
 "liveServer.settings.ignoreFiles": []
 ```
 
-### 3.3 settings 配置：
+### 3.3 settings 配置
 
 - JS 内置 snippets  `console.log()` 有分号无法从源头去除怎么办？
     ```json
@@ -93,9 +93,9 @@ node-dev server.js
 
 - 每一行外嵌套列表标签
 
-选中5行文字 → 命令：Emmet wrap → 输入缩写包围个别行 → `ul>li*`
+选中 5 行文字 → 命令：Emmet wrap → 输入缩写包围个别行 → `ul>li*`
 
-```
+```plain
 第一张专辑《Jay》就获得金曲奖最佳专辑。
 第二张专辑《范特西》获得包括最佳专辑、最佳编曲等在内的五个金曲奖奖项。
 第四张专辑《叶惠美》获得最佳专辑、最佳音乐视频导演奖。
@@ -103,7 +103,7 @@ node-dev server.js
 
 - JavaScript 代码自动加分号。Settings 搜索。JavaScript › Format: Semicolons。
 
-- Vue、JS文件中也想使用 Emmet。在`settings.json`中加入如下配置
+- Vue、JS 文件中也想使用 Emmet。在`settings.json`中加入如下配置
 
     ```json
     "emmet.includeLanguages": {
@@ -181,7 +181,7 @@ node-dev server.js
 }
 ```
 
-`onlySnippets`在 editor.quickSuggestions.other 是 off 时效果最好。因为开启 quicksuggestion  后必须等待提示稳定后，按tab才有效。当高速输入时，提示会经常变，比如输入`for`的前两个字母时，会先蹦出来`focus`的提示，输入第三个字母时才稳定回`for`的提示。
+`onlySnippets`在 editor.quickSuggestions.other 是 off 时效果最好。因为开启 quicksuggestion  后必须等待提示稳定后，按 tab 才有效。当高速输入时，提示会经常变，比如输入`for`的前两个字母时，会先蹦出来`focus`的提示，输入第三个字母时才稳定回`for`的提示。
 
 但是如果这样做，就没有任何代码补全提示。
 
@@ -233,7 +233,7 @@ node-dev server.js
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 ```
 
-在`/Users/jeffrey/Library/Application Support/Code/User`中新建文件夹 Emmet_custom。在 Settings 中Emmet: Extensions Path，添加 `/Users/jeffrey/Library/Application Support/Code/User/Emmet_custom`。
+在`/Users/jeffrey/Library/Application Support/Code/User`中新建文件夹 Emmet_custom。在 Settings 中 Emmet: Extensions Path，添加 `/Users/jeffrey/Library/Application Support/Code/User/Emmet_custom`。
 
 在文件夹中新建 `snippets.json`，注意该文件必须命名为`snippets.json`，这是官方文档的要求。并在 snippets.json 中新增如下代码：
 
@@ -251,7 +251,7 @@ node-dev server.js
 
 [VSCode 官方文档：Using custom Emmet snippets](https://code.visualstudio.com/docs/editor/emmet#_using-custom-emmet-snippets)
 
-[中文版：VSCode中Emmet修改默认html或css模板snippets](https://blog.csdn.net/weixin_42655717/article/details/112533401)
+[中文版：VSCode 中 Emmet 修改默认 html 或 css 模板 snippets](https://blog.csdn.net/weixin_42655717/article/details/112533401)
 
 
 

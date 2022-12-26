@@ -111,7 +111,7 @@ ele { overflow: -moz-scrollbars-none; }
 ele { -ms-overflow-style: none; }
 ```
 
-CSS 强调色（accent-color 属性）改变HTML原生表单元素配色
+CSS 强调色（accent-color 属性）改变 HTML 原生表单元素配色
 
 ```css
 /* https://web.dev/i18n/zh/accent-color */

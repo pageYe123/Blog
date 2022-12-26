@@ -7,7 +7,7 @@
     打开文件所在文件夹：`find + 文件名`
     搜索包含指定内容的文件：`in + 文件内容字符串`
     在 Default Results 面板可设置“搜索范围 search scope”。
-    参考：[Alfred系列教程---文件搜索](https://www.jianshu.com/p/2ce1dd633f4f)
+    参考：[Alfred 系列教程---文件搜索](https://www.jianshu.com/p/2ce1dd633f4f)
 - 隐藏菜单栏的 icon
     Alfred Preferences → Appearance → Options（左下角） → Hide menu bar icon
 
@@ -25,11 +25,11 @@
     - 只有小于 384 KB 的文件可搜索。
     - 只有文件少于 500,000 个的存储库可搜索。
     - Only repositories that have had activity or have been returned in search results in the last year are searchable.
-    - **解决办法：代码下载到本地，用本地IDE的搜索功能。**
+    - **解决办法：代码下载到本地，用本地 IDE 的搜索功能。**
     
 - 如果想搜索 README.md 的内容，可以用指令`<搜索词> filename:readme path:/`，或者直接在项目首页`⌘+f`搜索关键词。
 - 查看 Github 某个仓库大小。
-    登录 Github 网页首页，点击右上角自己的头像，下拉菜单中选中`settings`。左侧点击`repositories`，这里就有每个repository对应的存储空间大小。
+    登录 Github 网页首页，点击右上角自己的头像，下拉菜单中选中`settings`。左侧点击`repositories`，这里就有每个 repository 对应的存储空间大小。
 
 ## macOS
 - macOS `/Applications/<应用>/Contents/info.plist` 文件中，[`CFBundleIdentifier`](https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleidentifier?language=objc) 字段，就是对应 Karabiner 的 `bundle_identifiers`。
@@ -39,7 +39,7 @@
 <string>com.clipy-app.Clipy</string>
 ```
 - 从用户可感知的运行方式分类，macOS 的应用程序分为「窗口应用」和「菜单栏应用」。「菜单栏应用」是得益于 macOS 上菜单栏的构思，产生了一类独特的应用，它们没有单独的窗口，所有的交互都在单击菜单栏图标后展开的弹窗中完成。
-  macOS系统的软件开发中有这样的一个布尔值：`LSUIElement`（Launch Service）. 它来决定这个应用是否是代理应用（agent app 仅在后台运行，不会出现在 Dock 中）。
+macOS 系统的软件开发中有这样的一个布尔值：`LSUIElement`（Launch Service）. 它来决定这个应用是否是代理应用（agent app 仅在后台运行，不会出现在 Dock 中）。
   
 - 想只专注当前工作，比如我就想写博客，请按`option+command+h`，隐藏其他所有。
 
@@ -176,7 +176,7 @@ defaults delete com.clipy-app.Clipy kCPYPrefShowStatusItemKey
 解决 sm.ms [文件](https://recaptcha.google.cn/recaptcha/api.js?render=6LdArYchAAAAADs9BJEP0Ud-MpC54mNN90Bp0BvK)加载不出来的问题
 - ClashX 修改代理端口。
 
-ClashX > 配置 > 打开本地配置文件夹，找到“config.yaml”打开编辑（只有这份文件的端口设置会随ClashX启动生效，自定义的配置文件中的端口是无效的）。
+ClashX > 配置 > 打开本地配置文件夹，找到“config.yaml”打开编辑（只有这份文件的端口设置会随 ClashX 启动生效，自定义的配置文件中的端口是无效的）。
 
 - Chrome 插件 SwitchyOmega，每次换翻墙客户端时需要核对端口号是否一致。情景模式→代理模式→代理端口
 
@@ -203,7 +203,7 @@ ClashX > 配置 > 打开本地配置文件夹，找到“config.yaml”打开编
 
 - 查看 my watched tags：
     https://stackoverflow.com/questions/tagged?tab=Unanswered&tagMode=Watched
-- 
+
 
 
 ## JS Bin —— 在线 IDE

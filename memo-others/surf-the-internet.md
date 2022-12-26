@@ -5,7 +5,7 @@
     1. 进入 [SS 网站 https://portal.shadowsocks.nz/aff.php](https://portal.shadowsocks.nz/aff.php?aff=473) 购买服务器
    
         0. 如果此网站你打不开，那么你可以试试[另一个网站](https://nthu.cc/#/register?code=gs5WasSD)，但是本教程不适合[另一个网站](https://nthu.cc/#/register?code=gs5WasSD)，好在该网站自己提供了教程和客户端，你需要自行查看（看完之后你再回来看本教程的第二篇 [如何用 Chrome 插件 FQ](https://github.com/sun-shadow/Surf_the_Internet/blob/master/%E6%8F%92%E4%BB%B6%E7%AF%87.md)，你唯一需要做的改动就是看完第二篇之后，把插件配置中的 agent 里的 1080 端口，改成 33211 端口，不会的话再找我。）
-        1. 请购买Lite年付版，不用担心流量不够，因为随时可以购买流量补充包。
+        1. 请购买 Lite 年付版，不用担心流量不够，因为随时可以购买流量补充包。
         2. 有同学反应无法注册，其实不用注册，你购买的时候会提示你注册的。
         3. 购买的时候会让你填各种信息，你只要保证邮箱是你的即可，其他信息可以瞎填。
     2. 如果你已经在其他地方购买了代理服务器，则可跳过此步骤
@@ -20,14 +20,14 @@
         2. 双击 trojan-qt5.exe 打开软件，系统托盘里会出现一个小木马图标。
         2. 右键点击屏幕右下角托盘里的小木马图标，然后找到「服务器订阅」 =>「服务器订阅设置」，在里面添加你购买的服务器订阅地址。
             1. 你如果不知道订阅地址在哪，可以在购买服务器的网站找到「产品服务」，然后点击你购买的产品详情，再在里面找到「服务订阅」按钮。
-        3. 右键点击屏幕右下角托盘里的小木马图标，然后找到「服务器订阅」 =>「更新trojan服务器订阅」以及「更新trojan服务器订阅(不通过代理)」按钮，分别点击之
-        4. 等待1分钟后，右键点击屏幕右下角托盘里的小木马图标，然后找到「服务器」，就应该可以看见一大片 IP 列表了
+        3. 右键点击屏幕右下角托盘里的小木马图标，然后找到「服务器订阅」 =>「更新 trojan 服务器订阅」以及「更新 trojan 服务器订阅(不通过代理)」按钮，分别点击之
+        4. 等待 1 分钟后，右键点击屏幕右下角托盘里的小木马图标，然后找到「服务器」，就应该可以看见一大片 IP 列表了
         5. 双击小木马，点击菜单栏里的「设置 -> 常规设置 -> 入站设置」，将 socks5 端口号改为 1080（如果已经是 1080 就不用再改）
         5. 双击小木马，看到 IP 列表，随便选择一个 IP，右键，连接。
             1. 如果状态变成 Connected 就说明连接成功了。
             2. 如果连接失败，可能是 1080 端口被占用，解决方法见[这里](https://github.com/sun-shadow/Surf_the_Internet/blob/master/%E7%AB%AF%E5%8F%A3%E5%8D%A0%E7%94%A8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95.md)。但也可能是 IP 被墙，那么就换个 IP 连接试试。
         6. 然后右键点击屏幕右下角托盘里的小木马图标，然后点击「打开 Trojan」
-        7. 右键点击屏幕右下角托盘里的小木马图标，点击「系统代理模式」=>「PAC模式」或者「全局模式」
+        7. 右键点击屏幕右下角托盘里的小木马图标，点击「系统代理模式」=>「PAC 模式」或者「全局模式」
     4. 如果你用 trojan 发现还是不能翻墙，可以看看 SS 网站提供的其他翻墙客户端，比如 Clash 或者 Clashy，都可以试试。
 
 3. 测试
@@ -63,7 +63,7 @@ Chrome 插件配合 Shadowsocks 使用，效果奇佳。
 ![image](https://user-images.githubusercontent.com/59866634/72330854-2d680a00-36f2-11ea-96ae-5317075310ed.png)
 
 
-5. 在弹出的配置页面里点击「导入/导出」，点击「从备份文件恢复」，选中刚刚下载的OmegaOptions.bak，最后点击左边的「应用选项」即可。一定要点击「应用选项」！
+5. 在弹出的配置页面里点击「导入/导出」，点击「从备份文件恢复」，选中刚刚下载的 OmegaOptions.bak，最后点击左边的「应用选项」即可。一定要点击「应用选项」！
 
 ![image](https://user-images.githubusercontent.com/59866634/72330908-483a7e80-36f2-11ea-976c-73e21f8447b7.png)
 
@@ -99,25 +99,25 @@ alias proxyoff=unsetproxy
 ### 方法二：proxychains-ng
 1. 安装 homebrew 
 
-```
+```plain
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 ```
 2. 安装 proxychains-ng
 
-```
+```plain
 brew install proxychains-ng
 ```
 
-3. 配置proxychains-ng
+3. 配置 proxychains-ng
   - 安装 proxychains-ng
   - 下载配置文件（如果下面的命令执行失败，那你就自己下载[proxychains.conf](https://raw.githubusercontent.com/FrankFang/dot-files/master/proxychains.conf)，然后将其移动到 ~/.proxychains.conf）
   - 注意修改配置文件中的端口号，和本地代理客户端提供 socks 服务的端口号保持一致。
-    ```
+    ```plain
     curl -L https://raw.githubusercontent.com/FrankFang/dot-files/master/proxychains.conf > ~/.proxychains.conf
     ```
   - 添加 bash alias，运行 
-    ```
+    ```plain
     touch ~/.bashrc; echo 'alias pc="proxychains4 -f ~/.proxychains.conf"' >> ~/.bashrc
     ```
   - `source ~/.bashrc`

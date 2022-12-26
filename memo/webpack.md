@@ -124,10 +124,10 @@ div.appendChild(button)
 
 原因是 node18 删掉了 webpack 用到的 hash 函数，解决办法有：
 
-- 降级 node 到16（卸载重装）(推荐)
+- 降级 node 到 16（卸载重装）(推荐)
 - 按照官方 issue 推荐，先执行`export NODE_OPTIONS=--openssl-legacy-provider`, 再执行 webpack 命令，见[原文](https://github.com/webpack/webpack/issues/14532#issuecomment-947012063)。
 
-### Could not load content for webpack://...
+### Could not load content for webpack://
 
 uncheck the `Enable JavaScript source maps` in Chrome Dev Tool.
 

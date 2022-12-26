@@ -1,6 +1,6 @@
 # JS 新语法&新概念
 
-## `[@@match]`、`[@@iterator]`...
+## `[@@match]`、`[@@iterator]`
 
 `@@` 并不是 JS 中真实的语法，它描述的是一个 symbol 方法名。这些标记实际对应的方法名如下：
 
@@ -100,11 +100,11 @@ x ||= 2
 // 不等价于 x = x || 2，给 x 重新赋值了，会报错。
 ```
 
-注意：ES 2021（第12版）才引进，低版本的node.js不支持该语法。
+注意：ES 2021（第 12 版）才引进，低版本的 node.js 不支持该语法。
 
 ## 可迭代对象（iterable object）
 
-包括如下构造函数的实例：Array，String，TypedArray，Map，Set，NodeList，DOMcollections，以及 arguments，generator functions 产生的Generator Object， 还有 user-defined iterables。
+包括如下构造函数的实例：Array，String，TypedArray，Map，Set，NodeList，DOMcollections，以及 arguments，generator functions 产生的 Generator Object， 还有 user-defined iterables。
 
 **将类数组对象变为可迭代对象：**
 对于 Object 来说，是没有部署 Iterator 接口的。类数组对象是一个对象，所以不能像数组一样通过迭代器遍历。
