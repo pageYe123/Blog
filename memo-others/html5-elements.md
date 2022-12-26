@@ -5,7 +5,9 @@ There are six different kinds of elements:
 - [void elements](https://html.spec.whatwg.org/#void-elements) 空元素
 - [the `<template>` element](https://html.spec.whatwg.org/#the-template-element-2)
 - [raw text elements](https://html.spec.whatwg.org/#raw-text-elements)
+    - `<script>` 、`<style>`
 - [escapable raw text elements](https://html.spec.whatwg.org/#escapable-raw-text-elements)
+    - `<textarea>`、`<title>`
 - [foreign elements](https://html.spec.whatwg.org/#foreign-elements)
 - [normal elements](https://html.spec.whatwg.org/#normal-elements).
 
@@ -24,7 +26,8 @@ for 属性指向 input 的 id。效果：点击 label 标签，自动聚焦到 i
 </div>
 <!--等价于-->
 <div>
-  <label for="nameInput">用户名<input id="nameInput" type="text" name="name"></label>
+  <label for="nameInput">用户名</label>
+  <input id="nameInput" type="text" name="name">
 </div>
 ```
 
