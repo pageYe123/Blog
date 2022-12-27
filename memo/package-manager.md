@@ -37,6 +37,11 @@ npm install # 覆盖 package-lock.json
 npm install --dependencies
 ## 只安装 package.json 中 devDependencies 字段包含的模块
 npm install --devDependencies
+
+# 查看全局包安装路径
+npm root -g
+# 查看全局安装包有哪些
+npm list -g --depth 0
 ```
 
 ### yarn
@@ -87,6 +92,9 @@ nrm use taobao
 nvm use system
 # 使用指定版本的 node.js
 nvm use 10.24.1
+# 默认使用哪个版本的 node.js
+nvm alias default system
+nvm alias default v10
 # 查看本机当前使用 nvm 安装的 node.js 版本列表
 nvm list
 # 查看远程可用版本号
