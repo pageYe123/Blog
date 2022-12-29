@@ -200,7 +200,7 @@ git stash -m 'test-git-stash'
 比较文件在暂存区和工作区的差异。
 
 ```shell
-git diff <文件名>
+git diff --cached <文件名>
 ```
 
 从`commit-1`到`commit-2`文件发生了那些变化。
@@ -251,12 +251,14 @@ git reset --hard
 
 - 场景：单个文件、目录移出暂存区
 
-```plain
+```Shell
 git reset <file>
+# 等价于
+git restore --staged <file>
 ```
 
 - 场景：取消本次提交，变更退回至暂存区
-```plain
+```Shell
 git reset --soft HEAD~1
 ```
 
@@ -265,7 +267,7 @@ git reset --soft HEAD~1
 - 场景：从本地版本库还原工作目录中的单个文件
     前提：本地版本库 HEAD commit 中必须有这个文件。
 
-```plain
+```Shell
 git checkout HEAD -- <file>
 等价于
 git restore <file>
@@ -418,9 +420,9 @@ git merge experiment # 将 experiment 分支合并到 master 分支
 ```
 
 ### 场景：删除指定 commit
-git rebase -i <commit-id> 通过美化提交历史，删除本地仓库指定提交。**commit-id 为要删除的 commit 的上一个 commit 号。**
+`git rebase -i <commit-id>` 通过美化提交历史，删除本地仓库指定提交。**commit-id 为要删除的 commit 的上一个 commit 号。**
 
-```shell
+```Shell
 git log #获取 commit 信息 
 git rebase -i <commit-id> 
 # -i表示--interactive，交互式变基，
@@ -464,6 +466,11 @@ git push origin --tags
 
 ## 其他
 
+### 获取待提交的文件名
+"Changes to be committed:"
+```Shell
+git diff --name-only --cached
+```
 ### Github `New repository` 最佳方案
 
 新建远程仓库时，写完必填项`Repository name`，其他一概不填，内容完全由本地仓库推送上去。这样保证远程仓库没有 commit 信息，和本地仓库有 commit 信息的仓库进行合并时会容易一些。

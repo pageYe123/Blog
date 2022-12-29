@@ -80,6 +80,7 @@ node-dev server.js
 
 ### 3.3 settings 配置
 
+- `Table Formatter: Enabled` 不勾选，防止 VSCode 保存时自动对 table 原始代码格式化。实际上用 Obsidian 和 Typora 并不关心原始文件的格式问题。
 - JS 内置 snippets  `console.log()` 有分号无法从源头去除怎么办？
     ```json
     "javascript.format.semicolons": "remove"

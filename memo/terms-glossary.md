@@ -38,8 +38,7 @@ foo()
 ```
 
 调用栈信息：
-
-![image-20221120095753690](https://wx4.sinaimg.cn/large/6cdfff77gy1h8bczky4p2j208m03vq3c.jpg)
+![image.png](https://cdn.jsdelivr.net/gh/yeshiqing/imgHosting/blog-pictures/20221229174815.png)
 
 - 函数 foo 叫做 bar 的「调用者」（caller），**即 foo 中调用了 bar**。
 - 函数 bar 叫做 foo 的「被调用者」（callee），**即 bar 在 foo 中被调用**。
