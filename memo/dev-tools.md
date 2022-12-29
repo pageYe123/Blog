@@ -1,7 +1,7 @@
 ## 一、命令行工具
 
 - 根据服务器端代码，启动后端服务
-    node-dev 监听服务器端代码变动，自动更新服务器。
+node-dev 监听服务器端代码变动，自动更新服务器。
 
 ```shell
 yarn global add node-dev
@@ -21,6 +21,9 @@ node-dev server.js
     Preferences → Live templates
 - 配置 Node.js 解释器
     Language & Frameworks → Node.js
+- 保存默认窗口布局
+  将 Project tool window 设在右侧。
+  Window → Store Current Layout as Default
   ``
 
 ### 2.1 快捷键
@@ -72,6 +75,8 @@ node-dev server.js
 ```json
 "liveServer.settings.ignoreFiles": []
 ```
+- Open in External App
+  用额外的应用打开文件
 
 ### 3.3 settings 配置
 
