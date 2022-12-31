@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+#
+# An example hook script to verify what is about to be committed.
+# Called by "git commit" with no arguments.  The hook should
+# exit with non-zero status after issuing an appropriate message if
+# it wants to stop the commit.
+#
+# To enable this hook, rename this file to "pre-commit".
+
+cd "$HOME/github-projects/ysq-github/githubBlog"
+
+fileList=$(git diff HEAD --name-only --cached | tr "\n" " ")
+
+if [ -x "$(command -v lint-md)" ]; then
+    lint-md $fileList --fix --config="$HOME/.lintmdrc"
+    git add $fileList
+else
+    echo '没有安装 lint-md，请运行 "npm install -g @lint-md/cli@beta"'
+    exit 1
+fi
