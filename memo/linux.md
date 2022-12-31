@@ -239,6 +239,18 @@ ps > log | grep xxx
 
 [Shell 多命令执行符与管道符“|”](https://blog.csdn.net/weixin_40277264/article/details/118606674)
 
+#### command 命令
+
+获取 $PATH 中可执行程序的真实路径
+
+```Shell
+command -v git # /usr/bin/git
+# 如果是 alias，则返回 alias
+command -v unicode # alias unicode='node /usr/local/bin/unicode'
+```
+
+
+
 #### file 命令
 
 查看文件类型，可以判断是否为二进制文件。
@@ -271,7 +283,7 @@ ls -al
     ```
 
 - `echo $?`检验退出`exit`代码。
-    通常用作检验上个命令是否成功执行。  返回值是0，代表成功；如果是非零，代表失败。
+    通常用作检验上个命令是否成功执行。返回值是 0，代表成功；如果是非零，代表失败。
     有时候一个命令（如`mkdir foo`）执行完，终端控制台没有任何输出。到底执行成功了没有？此时可以用`echo $?`检验。
 
 #### printf 命令
@@ -370,7 +382,15 @@ git log --pretty=tformat: --numstat | head -n 100 | awk '{ add += $1; subs += $2
 
 #### grep 命令
 
-`-e`正则表达式。
+`-e`正则表达式，一般用`-E`。
+
+`-E` 强制使`grep`命令变为`egrep`命令，支持扩展的正则表达式。可参考：[linux 里 grep 和 egrep 的区别](https://blog.51cto.com/mcmvp/1180951)
+
+```shell
+echo this is a test line. | grep -o -E "[a-z]+\."
+# 输出 line.
+# `+` 匹配一个或多个先前的字符。`grep -e` 是不支持的。
+```
 
 `-o`只打印出匹配项。
 
@@ -383,15 +403,11 @@ echo this is a text line | grep -e "is" -e "line" -o
 # line
 ```
 
-`-E` 强制使`grep`命令变为`egrep`命令，支持扩展的正则表达式。可参考：[linux 里 grep 和 egrep 的区别](https://blog.51cto.com/mcmvp/1180951)
-
-```shell
-echo this is a test line. | grep -o -E "[a-z]+\."
-# 输出 line.
-# `+` 匹配一个或多个先前的字符。`grep -e` 是不支持的。
+`-z`将多行合并成一行
+一个数据行以 0 字节的 null-data 结尾，而不是换行符。
+```Shell
+gst | grep -z 'Changes to be committed:' 
 ```
-
-
 
 ##### grep 搭配 xargs：过滤出指定文件，并删除
 
@@ -406,7 +422,6 @@ ls -al | grep -oe ".gclient.*" | xargs rm -rf
 ```shell
 git status | grep -E "deleted by us:" | grep -o "src/.*" | xargs git rm
 ```
-
 
 
 ##### grep 搭配 xargs：过滤出含有指定文件内容文件，并对文件做出操作
@@ -605,6 +620,18 @@ sed 's/51837/51833/' ~/.gitconfig >> ~/.gitconfig
 a=$(defaults domains | sed 's/,/\\n/g'); # 将逗号为分隔，将文本转变为多行文本
 echo "$a" | grep "Clipy" # 找到含有 Clipy 的一项
 ```
+- 应用场景：替换换行符，将多行文本合并成一行
+  `sed`是按行处理文本数据的，每次处理一行数据后，都会在行尾自动添加 trailing newline，即换行符。所以 sed 命令无法替换换行符。需要用`tr`命令
+  ```Shell
+  tr "\n" " "
+  ```
+  
+#### tr 命令
+将字符进行替换压缩和删除。
+语法：`tr (选项) (参数)`
+参数：
+- 字符集 1：指定要转换或删除的原字符集。当执行转换操作时，必须使用参数“字符集 2”指定转换的目标字符集。但执行删除操作时，不需要参数“字符集 2”；
+- 字符集 2：指定要转换成的目标字符集。
 
 
 
@@ -738,7 +765,7 @@ echo1
 ### 五、命令行终端其他
 
 - 反引号````````与`$()`相同
-作用：反引号括起来的字符串被 Shell 解释为命令。在执行时，Shell 首先执行该命令，并以它的标准输出取代整个反引号包围的部分。效果同`$()`
+  作用：反引号括起来的字符串被 Shell 解释为命令。在执行时，Shell 首先执行该命令，并以它的标准输出取代整个反引号包围的部分。效果同`$()`
 
     ```shell
     # 计算当前目录下有多少文件及文件夹，不含子目录
@@ -757,9 +784,9 @@ echo1
         echo $(PORT)
     }
     ```
+  
     
-    
-    
+  
 - 命令之间的`;`、`&&`和`||`
 
     `;`（分号）：顺序地独立执行各条命令，彼此之间不关心是否失败，所有命令都会执行。
@@ -796,8 +823,8 @@ echo1
     
     - command > log 是将 command 的输出重定向到 log 文件，即输出内容不打印到屏幕上，而是输出到 log 文件中。
     
-    - 2>&1 是将标准错误重定向到标准输出，这里的标准输出已经重定向到了 log 文件，即将标准错误也输出到 log 文件中。
-        试想 2>  1 代表什么，2与>结合代表错误重定向，而 1 则代表错误重定向到一个文件 1，而不代表标准输出；换成     2>&1，&与1结合就代表标准输出了，就变成错误重定向到标准输出。
+    - `2>&1` 是将标准错误重定向到标准输出，这里的标准输出已经重定向到了 log 文件，即将标准错误也输出到 log 文件中。
+      试想 `2>1` 代表什么，2 与>结合代表错误重定向，而 1 则代表错误重定向到一个文件 1，而不代表标准输出；换成`2>&1`，& 与 1 结合就代表标准输出了，就变成错误重定向到标准输出。
     
     - 最后一个`&`，是让该命令在后台执行。当使用 & 将一个进程放置到后台运行的时候，Shell 会提示这个进程的进程 ID，我们可以使用进程 ID 来终止对应的进程。
 
@@ -919,7 +946,7 @@ PYTHONDONTWRITEBYTECODE=1 exec vpython "$base_dir/gclient.py" "$@"
     但是当它们被双引号`""`包含时，就会有区别了：
     - `"$*"`会将所有的参数从整体上看做一份数据，而不是把每个参数都看做一份数据。传了一整个字符串。
     - `"$@"`仍然将每个参数都看作一份数据，每个参数彼此之间是独立的。
-            比如如果传了5个参数，对于`"$*"`来说，会变成一个字符串；而对于`"$@"`来说，分别传了 5 个参数。
+       比如如果传了5个参数，对于`"$*"`来说，会变成一个字符串；而对于`"$@"`来说，分别传了 5 个参数。
 
 ### 获取当前脚本的文件路径
 
@@ -1137,7 +1164,7 @@ set -e     # 表示重新打开 -e 选项
 ```
 
 ### 输出多行信息到终端
-
+方法一：多行 `echo`
 ```shell
 if $use_partial_lint; then
   echo
@@ -1152,7 +1179,15 @@ if $use_partial_lint; then
 fi
 ```
 
+方法二：这个方法不仅输出多行，而且保留了空白字符：
+```Shell
+cat <<\EOF
+Error: Attempt to add a non-ASCII file name.
 
+If you know what you are doing you can disable this check using:
+   git config hooks.allownonascii true
+EOF
+```
 
 ### shell 脚本学习资料
 
